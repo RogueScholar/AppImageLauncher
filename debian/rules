@@ -8,6 +8,7 @@ export QT_SELECT=5
 	dh $@
 
 override_dh_auto_configure:
+	head -n 1 debian/changelog | sed -nE "s|.*-([0-9a-f]{7})~[^~]*|\1|p" > cmake/GIT_COMMIT # Read Git commit hash from Debian version (only works on Launchpad)
 	dh_auto_configure -- 	-DUSE_SYSTEM_LIBAPPIMAGE=ON -DCMAKE_BUILD_TYPE=Release \
 	-DENABLE_UPDATE_HELPER=OFF -DINSTALL_MAINTAINER_SCRIPTS=ON
 
