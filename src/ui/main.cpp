@@ -3,10 +3,10 @@
 #include <iostream>
 #include <sstream>
 extern "C" {
-    #include <sys/stat.h>
-    #include <libgen.h>
-    #include <unistd.h>
-    #include <glib.h>
+#include <sys/stat.h>
+#include <libgen.h>
+#include <unistd.h>
+#include <glib.h>
 }
 
 // library includes
@@ -25,7 +25,7 @@ extern "C" {
 #include <QTemporaryDir>
 #include <QTextStream>
 extern "C" {
-    #include <appimage/appimage.h>
+#include <appimage/appimage.h>
 }
 
 // local headers
@@ -90,7 +90,7 @@ int runAppImage(const QString& pathToAppImage, unsigned long argc, char** argv) 
         usleep(i * 100000);
 
         // register current AppImage
-        if (!registrationWorked){
+        if (!registrationWorked) {
             QFile registerFile(pathToFSEndpoint + "/register");
 
             if (registerFile.open(QIODevice::Append)) {
@@ -199,7 +199,7 @@ QCoreApplication* getApp(char** argv) {
     // need to pass rvalue, hence defining a variable
     int* fakeArgc = new int{1};
 
-    static char** fakeArgv = new char*{strdup(argv[0])};
+    static char** fakeArgv = new char* {strdup(argv[0])};
 
     if (isHeadless()) {
         app = new QCoreApplication(*fakeArgc, fakeArgv);
@@ -468,9 +468,9 @@ int main(int argc, char** argv) {
                                 "Choosing No will run the AppImage once, and leave the AppImage in its current "
                                 "directory."
                                 "\n\n").arg(pathToAppImage) +
-                                // translate separately to share string with the other dialog
-                                QObject::tr("The directory the integrated AppImages are stored in is currently set to:\n"
-                                            "%1").arg(integratedAppImagesDestination().path()) + "\n",
+                // translate separately to share string with the other dialog
+                QObject::tr("The directory the integrated AppImages are stored in is currently set to:\n"
+                            "%1").arg(integratedAppImagesDestination().path()) + "\n",
                 QMessageBox::Yes | QMessageBox::No
             );
 
@@ -498,13 +498,13 @@ int main(int argc, char** argv) {
 
     std::ostringstream explanationStrm;
     explanationStrm << QObject::tr("Integrating it will move the AppImage into a predefined location, "
-                       "and include it in your application launcher.").toStdString() << std::endl
+                                   "and include it in your application launcher.").toStdString() << std::endl
                     << std::endl
                     << QObject::tr("To remove or update the AppImage, please use the context menu of the "
-                       "application icon in your task bar or launcher.").toStdString() << std::endl
+                                   "application icon in your task bar or launcher.").toStdString() << std::endl
                     << std::endl
                     << QObject::tr("The directory the integrated AppImages are stored in is currently "
-                                        "set to:").toStdString() << std::endl
+                                   "set to:").toStdString() << std::endl
                     << integratedAppImagesDestination().path().toStdString() << std::endl;
 
     auto explanation = explanationStrm.str();

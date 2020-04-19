@@ -10,8 +10,8 @@
 #include "shared.h"
 
 SettingsDialog::SettingsDialog(QWidget* parent) :
-        QDialog(parent),
-        ui(new Ui::SettingsDialog) {
+    QDialog(parent),
+    ui(new Ui::SettingsDialog) {
     ui->setupUi(this);
 
     ui->applicationsDirLineEdit->setPlaceholderText(integratedAppImagesDestination().absolutePath());

@@ -60,18 +60,18 @@ private Q_SLOTS:
 
         // this alone unfortunately doesn't do the trick...
         for (auto* layout : {
-            static_cast<QLayout*>(firstRunDialog->destDirVertLayout),
-            static_cast<QLayout*>(firstRunDialog->destDirHorLayout),
-        }) {
+                    static_cast<QLayout*>(firstRunDialog->destDirVertLayout),
+                    static_cast<QLayout*>(firstRunDialog->destDirHorLayout),
+                }) {
             layout->setEnabled(state > 0);
         }
 
         // have to also manually enable/disable all the
         for (auto* label : {
-            static_cast<QWidget*>(firstRunDialog->destinationDirDescLabel),
-            static_cast<QWidget*>(firstRunDialog->destinationDirLabel),
-            static_cast<QWidget*>(firstRunDialog->customizeIntegrationDirButton),
-        }) {
+                    static_cast<QWidget*>(firstRunDialog->destinationDirDescLabel),
+                    static_cast<QWidget*>(firstRunDialog->destinationDirLabel),
+                    static_cast<QWidget*>(firstRunDialog->customizeIntegrationDirButton),
+                }) {
             label->setEnabled(state > 0);
         }
     }
@@ -113,8 +113,8 @@ private:
         // set up logo in a QLabel
         firstRunDialog->logoLabel->setText("");
         auto pixmap = QPixmap::fromImage(QImage(":/AppImageLauncher.svg")).scaled(QSize(128,128),
-                Qt::KeepAspectRatio, Qt::SmoothTransformation
-        );
+                      Qt::KeepAspectRatio, Qt::SmoothTransformation
+                                                                                 );
         firstRunDialog->logoLabel->setPixmap(pixmap);
 
         // setting icon in Qt Designer doesn't seem to work

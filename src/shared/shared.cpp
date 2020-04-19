@@ -5,12 +5,12 @@
 #include <sstream>
 #include <tuple>
 extern "C" {
-    #include <appimage/appimage.h>
-    #include <glib.h>
+#include <appimage/appimage.h>
+#include <glib.h>
     // #include <libgen.h>
-    #include <sys/stat.h>
-    #include <stdio.h>
-    #include <unistd.h>
+#include <sys/stat.h>
+#include <stdio.h>
+#include <unistd.h>
 }
 
 // library includes
@@ -52,7 +52,7 @@ static void gErrorDeleter(GError* ptr) {
 }
 
 bool makeExecutable(const QString& path) {
-    struct stat fileStat{};
+    struct stat fileStat {};
 
     if (stat(path.toStdString().c_str(), &fileStat) != 0) {
         std::cerr << "Failed to call stat() on " << path.toStdString() << std::endl;
@@ -62,8 +62,8 @@ bool makeExecutable(const QString& path) {
     // no action required when file is executable already
     // this could happen in scenarios when an AppImage is in a read-only location
     if ((fileStat.st_uid == getuid() && fileStat.st_mode & 0100) ||
-        (fileStat.st_gid == getgid() && fileStat.st_mode & 0010) ||
-        (fileStat.st_mode & 0001)) {
+            (fileStat.st_gid == getgid() && fileStat.st_mode & 0010) ||
+            (fileStat.st_mode & 0001)) {
         return true;
     }
 
@@ -71,7 +71,7 @@ bool makeExecutable(const QString& path) {
 }
 
 bool makeNonExecutable(const QString& path) {
-    struct stat fileStat{};
+    struct stat fileStat {};
 
     if (stat(path.toStdString().c_str(), &fileStat) != 0) {
         std::cerr << "Failed to call stat() on " << path.toStdString() << std::endl;
@@ -81,7 +81,9 @@ bool makeNonExecutable(const QString& path) {
     auto permissions = fileStat.st_mode;
 
     // remove executable permissions
-    for (const auto permPart : {0100, 0010, 0001}) {
+    for (const auto permPart : {
+                0100, 0010, 0001
+            }) {
         if (permissions & permPart)
             permissions -= permPart;
     }
@@ -196,7 +198,7 @@ std::shared_ptr<QSettings> getConfig() {
     const auto keysContainingPath = {
         "AppImageLauncher/destination",
     };
-    for (const QString& keyContainingPath : keysContainingPath){
+    for (const QString& keyContainingPath : keysContainingPath) {
         if (rv->contains(keyContainingPath)) {
             auto newValue = expandTilde(rv->value(keyContainingPath).toString());
             rv->setValue(keyContainingPath, newValue);
@@ -224,17 +226,17 @@ bool isHeadless() {
     proc.waitForFinished();
 
     switch (proc.exitCode()) {
-        case 255: {
-            // program not found, using fallback method
-            isHeadless = (getenv("DISPLAY") == nullptr);
-            break;
-        }
-        case 0:
-        case 1:
-            isHeadless = proc.exitCode() == 1;
-            break;
-        default:
-            throw std::runtime_error("Headless detection failed: unexpected exit code from xhost");
+    case 255: {
+        // program not found, using fallback method
+        isHeadless = (getenv("DISPLAY") == nullptr);
+        break;
+    }
+    case 0:
+    case 1:
+        isHeadless = proc.exitCode() == 1;
+        break;
+    default:
+        throw std::runtime_error("Headless detection failed: unexpected exit code from xhost");
     }
 
     return isHeadless;
@@ -286,7 +288,7 @@ public:
         mountPoint(std::move(mountPoint)),
         fsType(std::move(fsType)),
         mountOptions(std::move(
-        mountOptions)) {}
+                         mountOptions)) {}
 
     Mount(const Mount& other) = default;
 
@@ -372,9 +374,9 @@ QSet<QString> additionalAppImagesLocations(const bool includeAllMountPoints) {
             // there's a few locations which we know we don't want to search for AppImages in
             // either it's a waste of time or otherwise a bad idea, but it will surely save time *not* to search them
             if (std::find_if(blacklistedMountPointPrefixes.begin(), blacklistedMountPointPrefixes.end(),
-                             [&mountPoint](const QString& prefix) {
-                                 return mountPoint == prefix || mountPoint.startsWith(prefix + "/");
-                             }) != blacklistedMountPointPrefixes.end()) {
+            [&mountPoint](const QString& prefix) {
+            return mountPoint == prefix || mountPoint.startsWith(prefix + "/");
+            }) != blacklistedMountPointPrefixes.end()) {
                 continue;
             }
 
@@ -834,11 +836,11 @@ bool installDesktopFileAndIcons(const QString& pathToAppImage, bool resolveColli
 
     // add desktop actions key
     g_key_file_set_string_list(
-            desktopFile.get(),
-            G_KEY_FILE_DESKTOP_GROUP,
-            G_KEY_FILE_DESKTOP_KEY_ACTIONS,
-            convertToCharPointerList(desktopActions).data(),
-            desktopActions.size()
+        desktopFile.get(),
+        G_KEY_FILE_DESKTOP_GROUP,
+        G_KEY_FILE_DESKTOP_KEY_ACTIONS,
+        convertToCharPointerList(desktopActions).data(),
+        desktopActions.size()
     );
 
     // add version key
@@ -1090,7 +1092,7 @@ bool cleanUpOldDesktopIntegrationResources(bool verbose) {
 }
 
 time_t getMTime(const QString& path) {
-    struct stat st{};
+    struct stat st {};
     if (stat(path.toStdString().c_str(), &st) != 0) {
         displayError(QObject::tr("Failed to call stat() on path:\n\n%1").arg(path));
         return -1;
@@ -1103,7 +1105,7 @@ bool desktopFileHasBeenUpdatedSinceLastUpdate(const QString& pathToAppImage) {
     const auto ownBinaryPath = getOwnBinaryPath();
 
     const auto desktopFilePath = appimage_registered_desktop_file_path(pathToAppImage.toStdString().c_str(), nullptr, false);
-    
+
     auto ownBinaryMTime = getMTime(ownBinaryPath.get());
     auto desktopFileMTime = getMTime(desktopFilePath);
 
@@ -1224,7 +1226,9 @@ void checkAuthorizationAndShowDialogIfNecessary(const QString& path, const QStri
         qDebug() << "ok, attempting relaunch with root helper";
 
         // pkexec doesn't retain $DISPLAY etc., as per the man page, so we can't run UI programs with it
-        for (const auto& rootHelperFilename : {/*"pkexec",*/ "gksudo", "gksu"}) {
+        for (const auto& rootHelperFilename : {
+                    /*"pkexec",*/ "gksudo", "gksu"
+                }) {
             const auto rootHelperPath = which(rootHelperFilename);
             qDebug() << "trying root helper " << rootHelperFilename << rootHelperPath;
 
@@ -1253,9 +1257,9 @@ void checkAuthorizationAndShowDialogIfNecessary(const QString& path, const QStri
             // if the execution fails, we should signalize this to the user instead of silently failing over to the
             // next tool
             QMessageBox::critical(
-                    nullptr,
-                    QMessageBox::tr("Error"),
-                    QMessageBox::tr("Failed to run permissions helper, exited with return code %1").arg(rv)
+                nullptr,
+                QMessageBox::tr("Error"),
+                QMessageBox::tr("Failed to run permissions helper, exited with return code %1").arg(rv)
             );
             exit(1);
         }
