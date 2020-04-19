@@ -14,5 +14,5 @@ override_dh_auto_configure:
 
 override_dh_fixperms:
 	dh_fixperms
-	chmod +x $(CURDIR)/debian/appimagelauncher/usr/lib/*/appimagelauncher/maintainer-scripts/post-install
-	chmod +x $(CURDIR)/debian/appimagelauncher/usr/lib/*/appimagelauncher/maintainer-scripts/post-uninstall
+	chmod +x $(CURDIR)/debian/appimagelauncher/usr/share/appimagelauncher/maintainer-scripts/post-install
+	chmod +x $(CURDIR)/debian/appimagelauncher/usr/share/appimagelauncher/maintainer-scripts/post-uninstall

@@ -1,6 +1,4 @@
 #!/bin/bash
 set -e
-DEB_HOST_MULTIARCH=$(dpkg-architecture -qDEB_HOST_MULTIARCH)
-export DEB_HOST_MULTIARCH
-/usr/lib/$DEB_HOST_MULTIARCH/appimagelauncher/maintainer-scripts/post-install
+/usr/share/appimagelauncher/maintainer-scripts/post-install
 #DEBHELPER#
