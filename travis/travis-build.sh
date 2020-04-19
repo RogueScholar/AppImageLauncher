@@ -24,7 +24,7 @@ trap cleanup EXIT
 apt-get install -y librsvg2-dev
 
 # store repo root as variable
-REPO_ROOT=$(readlink -f $(dirname "${BASH_SOURCE[0]}")/..)
+REPO_ROOT=$(readlink -f "$(dirname "${BASH_SOURCE[0]}")"/..)
 OLD_CWD=$(readlink -f .)
 
 pushd "$BUILD_DIR"
@@ -36,7 +36,7 @@ pushd "$BUILD_DIR"
 if [[ "$ARCH" != "arm"* ]]; then
     echo "Downloading up to date CMake"
     wget https://cmake.org/files/v3.13/cmake-3.13.2-Linux-x86_64.tar.gz -qO- | tar xz --strip-components=1
-    export PATH=$(readlink -f bin/):"$PATH"
+    export PATH="$(readlink -f bin/):$PATH"
     which cmake
     cmake --version
 else
@@ -71,10 +71,10 @@ if [ "$ARCH" == "armhf" ]; then
     export QT_SELECT=qt5-arm-linux-gnueabihf
 fi
 
-cmake "$REPO_ROOT" -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=RelWithDebInfo $EXTRA_CMAKE_FLAGS -DTRAVIS_BUILD=ON -DBUILD_TESTING=OFF
+cmake "$REPO_ROOT" -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=RelWithDebInfo "$EXTRA_CMAKE_FLAGS" -DTRAVIS_BUILD=ON -DBUILD_TESTING=OFF
 
 # now, compile
-make -j $(nproc)
+make -j "$(nproc)"
 
 # re-run cmake to find built shared objects with the globs, and update the CPack files
 cmake .

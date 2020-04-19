@@ -10,7 +10,7 @@ set -e
 
 export DOCKER_DIST="$1"
 
-cd $(readlink -f $(dirname "$0"))
+cd "$(readlink -f "$(dirname "$0")")"
 
 IMAGE=quay.io/appimagelauncher-build/"$DOCKER_DIST"
 DOCKERFILE=Dockerfile.build-"$DOCKER_DIST"
@@ -66,6 +66,6 @@ if [ "$TRAVIS" != "" ]; then
 fi
 
 # run build
-docker run -e ARCH -e TRAVIS_BUILD_NUMBER --rm -i "${DOCKER_OPTS[@]}" -v $(readlink -f ..):/ws "$IMAGE" \
+docker run -e ARCH -e TRAVIS_BUILD_NUMBER --rm -i "${DOCKER_OPTS[@]}" -v "$(readlink -f ..)":/ws "$IMAGE" \
     bash -xc "export CI=1 && export DEBIAN_DIST=\"$DOCKER_DIST\" && cd /ws && source travis/$build_script"
 
