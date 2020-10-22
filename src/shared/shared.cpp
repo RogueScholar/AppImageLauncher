@@ -416,23 +416,40 @@ getAdditionalDirectoriesFromConfig(const std::shared_ptr<QSettings> &config) {
   if (config == nullptr)
     return {};
 
-  constexpr auto configKey =
-      "appimagelauncherd/additional_directories_to_watch";
+    constexpr auto configKey = "appimagelauncherd/additional_directories_to_watch";
+    const auto configValue = config->value(configKey, "").toString();
+    qDebug() << configKey << "value:" << configValue;
 
   QDirSet additionalDirs{};
 
-  const auto configValue = config->value(configKey, "").toString();
+    for (auto dirPath : configValue.split(":")) {
+        // empty values will, for some reason, be interpreted as "use the home directory"
+        // as we don't want to accidentally monitor the home directory, we need to skip those values
+        if (dirPath.isEmpty()) {
+            qDebug() << "skipping empty directory path";
+            continue;
+        }
 
-  for (auto dirPath : configValue.split(":")) {
-    // make sure to have full path
-    dirPath = expandTilde(dirPath);
+        // make sure to have full path
+        qDebug() << "path before tilde expansion:" << dirPath;
+        dirPath = expandTilde(dirPath);
+        qDebug() << "path after tilde expansion:" << dirPath;
+
+        // non-absolute paths which don't contain a tilde cannot be resolved safely, they likley depend on the cwd
+        // therefore, we need to ignore those
+        if (!QFileInfo(dirPath).isAbsolute()) {
+            std::cerr << "Warning: path " << dirPath.toStdString() << " can not be resolved, skipping" << std::endl;
+            continue;
+        }
 
     const QDir dir(dirPath);
 
-    if (!dir.exists()) {
-      std::cerr << "Warning: could not find directory " << dirPath.toStdString()
-                << ", skipping" << std::endl;
-      continue;
+        if (!dir.exists()) {
+            std::cerr << "Warning: could not find directory " << dirPath.toStdString() << ", skipping" << std::endl;
+            continue;
+        }
+
+        additionalDirs.insert(dir);
     }
 
     additionalDirs.insert(dir);
@@ -586,102 +603,125 @@ std::shared_ptr<char> getOwnBinaryPath() {
   return path;
 }
 
-bool installDesktopFileAndIcons(const QString &pathToAppImage,
-                                bool resolveCollisions) {
-  if (appimage_register_in_system(pathToAppImage.toStdString().c_str(),
-                                  false) != 0) {
-    displayError(
-        QObject::tr("Failed to register AppImage in system via libappimage"));
-    return false;
-  }
+#ifndef BUILD_LITE
+QString privateLibDirPath(const QString& srcSubdirName) {
+    // PRIVATE_LIBDIR will be a relative path most likely
+    // therefore, we need to detect the install prefix based on our own binary path, and then calculate the path to
+    // the helper tools based on that
+    const QString ownBinaryDirPath = QFileInfo(getOwnBinaryPath().get()).dir().absolutePath();
+    const QString installPrefixPath = QFileInfo(ownBinaryDirPath).dir().absolutePath();
+    QString privateLibDirPath = installPrefixPath + "/" + PRIVATE_LIBDIR;
 
-  const auto *desktopFilePath = appimage_registered_desktop_file_path(
-      pathToAppImage.toStdString().c_str(), nullptr, false);
+    // the following lines make things work during development: here, the build dir path is inserted instead, which
+    // allows for testing with the latest changes
+    if (!QDir(privateLibDirPath).exists()) {
+        // this makes sure that when we're running from a local dev build, we end up in the right directory
+        // very important when running this code from the daemon, since it's not in the same directory as the helpers
+        privateLibDirPath = ownBinaryDirPath + "/../" + srcSubdirName;
+    }
 
-  // sanity check -- if the file doesn't exist, the function returns NULL
-  if (desktopFilePath == nullptr) {
-    displayError(QObject::tr("Failed to find integrated desktop file"));
-    return false;
-  }
+    // if there is no such directory like <prefix>/bin/../lib/... or the binary is not found there, there is a chance
+    // the binary is just next to this one (this is the case in the update/remove helpers)
+    // therefore we compare the binary directory path with PRIVATE_LIBDIR
+    if (!QDir(privateLibDirPath).exists()) {
+        if (privateLibDirPath.contains(PRIVATE_LIBDIR)) {
+            privateLibDirPath = ownBinaryDirPath;
+        }
+    }
 
-  // check that file exists
-  if (!QFile(desktopFilePath).exists()) {
-    displayError(
-        QObject::tr("Couldn't find integrated AppImage's desktop file"));
-    return false;
-  }
+    return privateLibDirPath;
+}
+#endif
 
-  /* write AppImageLauncher specific entries to desktop file
-   *
-   * unfortunately, QSettings doesn't work as a desktop file reader/writer, and
-   * libqtxdg isn't really meant to be used by projects via
-   * add_subdirectory/ExternalProject a system dependency is not an option for
-   * this project, and we link to glib already anyway, so let's just use glib,
-   * which is known to work
-   */
+bool installDesktopFileAndIcons(const QString& pathToAppImage, bool resolveCollisions) {
+    if (appimage_register_in_system(pathToAppImage.toStdString().c_str(), false) != 0) {
+        displayError(QObject::tr("Failed to register AppImage in system via libappimage"));
+        return false;
+    }
 
-  std::shared_ptr<GKeyFile> desktopFile(g_key_file_new(), gKeyFileDeleter);
+    const auto* desktopFilePath = appimage_registered_desktop_file_path(pathToAppImage.toStdString().c_str(), nullptr, false);
 
-  std::shared_ptr<GError *> error(nullptr, gErrorDeleter);
+    // sanity check -- if the file doesn't exist, the function returns NULL
+    if (desktopFilePath == nullptr) {
+        displayError(QObject::tr("Failed to find integrated desktop file"));
+        return false;
+    }
 
-  const auto flags =
-      GKeyFileFlags(G_KEY_FILE_KEEP_COMMENTS | G_KEY_FILE_KEEP_TRANSLATIONS);
+    // check that file exists
+    if (!QFile(desktopFilePath).exists()) {
+        displayError(QObject::tr("Couldn't find integrated AppImage's desktop file"));
+        return false;
+    }
 
-  auto handleError = [error, desktopFile]() {
-    std::ostringstream ss;
-    ss << QObject::tr("Failed to load desktop file:").toStdString() << std::endl
-       << (*error)->message;
-    displayError(QString::fromStdString(ss.str()));
-  };
+    /* write AppImageLauncher specific entries to desktop file
+     *
+     * unfortunately, QSettings doesn't work as a desktop file reader/writer, and libqtxdg isn't really meant to be
+     * used by projects via add_subdirectory/ExternalProject
+     * a system dependency is not an option for this project, and we link to glib already anyway, so let's just use
+     * glib, which is known to work
+     */
 
-  if (!g_key_file_load_from_file(desktopFile.get(), desktopFilePath, flags,
-                                 error.get())) {
-    handleError();
-    return false;
-  }
+    std::shared_ptr<GKeyFile> desktopFile(g_key_file_new(), gKeyFileDeleter);
 
-  const auto *nameEntry =
-      g_key_file_get_string(desktopFile.get(), G_KEY_FILE_DESKTOP_GROUP,
-                            G_KEY_FILE_DESKTOP_KEY_NAME, error.get());
+    std::shared_ptr<GError*> error(nullptr, gErrorDeleter);
 
-  if (nameEntry == nullptr) {
-    displayWarning(QObject::tr("AppImage has invalid desktop file"));
-  }
+    const auto flags = GKeyFileFlags(G_KEY_FILE_KEEP_COMMENTS | G_KEY_FILE_KEEP_TRANSLATIONS);
 
-  if (resolveCollisions) {
-    // TODO: support multilingual collisions
-    auto collisions = findCollisions(nameEntry);
+    auto handleError = [error, desktopFile]() {
+        std::ostringstream ss;
+        ss << QObject::tr("Failed to load desktop file:").toStdString() << std::endl << (*error)->message;
+        displayError(QString::fromStdString(ss.str()));
+    };
 
-    // make sure to remove own entry
-    collisions.erase(collisions.find(desktopFilePath));
+    if (!g_key_file_load_from_file(desktopFile.get(), desktopFilePath, flags, error.get())) {
+        handleError();
+        return false;
+    }
 
-    if (!collisions.empty()) {
-      // collisions are resolved like in the filesystem: a monotonically
-      // increasing number in brackets is appended to the Name in order to keep
-      // the number monotonically increasing, we look for the highest number in
-      // brackets in the existing entries, add 1 to it, and append it in
-      // brackets to the current desktop file's Name entry
+    const auto* nameEntry = g_key_file_get_string(desktopFile.get(), G_KEY_FILE_DESKTOP_GROUP, G_KEY_FILE_DESKTOP_KEY_NAME, error.get());
 
-      unsigned int currentNumber = 1;
+    if (nameEntry == nullptr) {
+        displayWarning(QObject::tr("AppImage has invalid desktop file"));
+    }
 
-      QRegularExpression regex(R"(^.*\(([0-9]+)\)$)");
+    if (resolveCollisions) {
+        // TODO: support multilingual collisions
+        auto collisions = findCollisions(nameEntry);
 
-      for (const auto &collision : collisions) {
-        const auto &currentNameEntry = collision.second;
+        // make sure to remove own entry
+        collisions.erase(collisions.find(desktopFilePath));
 
-        auto match = regex.match(QString::fromStdString(currentNameEntry));
+        if (!collisions.empty()) {
+            // collisions are resolved like in the filesystem: a monotonically increasing number in brackets is
+            // appended to the Name in order to keep the number monotonically increasing, we look for the highest
+            // number in brackets in the existing entries, add 1 to it, and append it in brackets to the current
+            // desktop file's Name entry
 
-        if (match.hasMatch()) {
-          // 0 = entire string
-          // 1 = first group
-          const QString numString = match.captured(1);
-          const int num = numString.toInt();
+            unsigned int currentNumber = 1;
 
-          // monotonic counting, i.e., never try to "be smart" by e.g., filling
-          // in the gaps between previous numbers
-          if (num >= currentNumber) {
-            currentNumber = num + 1;
-          }
+            QRegularExpression regex(R"(^.*\(([0-9]+)\)$)");
+
+            for (const auto& collision : collisions) {
+                const auto& currentNameEntry = collision.second;
+
+                auto match = regex.match(QString::fromStdString(currentNameEntry));
+
+                if (match.hasMatch()) {
+                    // 0 = entire string
+                    // 1 = first group
+                    const QString numString = match.captured(1);
+                    const int num = numString.toInt();
+
+                    // monotonic counting, i.e., never try to "be smart" by e.g., filling in the gaps between
+                    // previous numbers
+                    if (num >= currentNumber) {
+                        currentNumber = num + 1;
+                    }
+                }
+            }
+
+            auto newName = QString(nameEntry) + " (" + QString::number(currentNumber) + ")";
+            g_key_file_set_string(desktopFile.get(), G_KEY_FILE_DESKTOP_GROUP, G_KEY_FILE_DESKTOP_KEY_NAME, newName.toStdString().c_str());
         }
       }
 
@@ -780,36 +820,9 @@ bool installDesktopFileAndIcons(const QString &pathToAppImage,
 #endif
 
 #ifndef BUILD_LITE
-  // PRIVATE_LIBDIR will be a relative path most likely
-  // therefore, we need to detect the install prefix based on our own binary
-  // path, and then calculate the path to the helper tools based on that
-  const QString ownBinaryDirPath =
-      QFileInfo(getOwnBinaryPath().get()).dir().absolutePath();
-  const QString installPrefixPath =
-      QFileInfo(ownBinaryDirPath).dir().absolutePath();
-  QString privateLibDirPath = installPrefixPath + "/" + PRIVATE_LIBDIR;
+    auto privateLibDir = privateLibDirPath("ui");
 
-  // if there is no such directory like <prefix>/bin/../lib/... or the binary is
-  // not found there, there is a chance the binary is just next to this one
-  // (this is the case in the update/remove helpers) therefore we compare the
-  // binary directory path with PRIVATE_LIBDIR
-  if (!QDir(privateLibDirPath).exists()) {
-    if (privateLibDirPath.contains(PRIVATE_LIBDIR)) {
-      privateLibDirPath = ownBinaryDirPath;
-    }
-  }
-
-  // the following lines make things work during development: here, the build
-  // dir path is inserted instead, which allows for testing with the latest
-  // changes
-  if (!QDir(privateLibDirPath).exists()) {
-    // this makes sure that when we're running from a local dev build, we end up
-    // in the right directory very important when running this code from the
-    // daemon, since it's not in the same directory as the helpers
-    privateLibDirPath = ownBinaryDirPath + "/../ui";
-  }
-
-  const char helperIconName[] = "AppImageLauncher";
+    const char helperIconName[] = "AppImageLauncher";
 #else
   const char helperIconName[] = "AppImageLauncher-Lite";
 #endif
@@ -818,10 +831,8 @@ bool installDesktopFileAndIcons(const QString &pathToAppImage,
   {
     const auto removeSectionName = "Desktop Action Remove";
 
-    g_key_file_set_string(desktopFile.get(), removeSectionName, "Name",
-                          "Remove AppImage from system");
-    g_key_file_set_string(desktopFile.get(), removeSectionName, "Icon",
-                          helperIconName);
+        g_key_file_set_string(desktopFile.get(), removeSectionName, "Name", "Delete this AppImage");
+        g_key_file_set_string(desktopFile.get(), removeSectionName, "Icon", helperIconName);
 
     std::ostringstream removeExecPath;
 
@@ -860,15 +871,13 @@ bool installDesktopFileAndIcons(const QString &pathToAppImage,
 
       const auto updateSectionName = "Desktop Action Update";
 
-      g_key_file_set_string(desktopFile.get(), updateSectionName, "Name",
-                            "Update AppImage");
-      g_key_file_set_string(desktopFile.get(), updateSectionName, "Icon",
-                            helperIconName);
+            g_key_file_set_string(desktopFile.get(), updateSectionName, "Name", "Update this AppImage");
+            g_key_file_set_string(desktopFile.get(), updateSectionName, "Icon", helperIconName);
 
       std::ostringstream updateExecPath;
 
 #ifndef BUILD_LITE
-      updateExecPath << privateLibDirPath.toStdString() << "/update";
+            updateExecPath << privateLibDir.toStdString() << "/update";
 #else
       updateExecPath << getenv("HOME")
                      << "/.local/lib/appimagelauncher-lite/"
@@ -1200,59 +1209,9 @@ bool desktopFileHasBeenUpdatedSinceLastUpdate(const QString &pathToAppImage) {
   return desktopFileMTime > ownBinaryMTime;
 }
 
-bool fsDaemonHasBeenRestartedSinceLastUpdate() {
-  const auto ownBinaryPath = getOwnBinaryPath();
-
-  auto ownBinaryMTime = getMTime(ownBinaryPath.get());
-
-  auto getServiceStartTime = []() -> long long {
-    auto fp = popen("systemctl --user show appimagelauncherfs.service "
-                    "--property=ActiveEnterTimestampMonotonic",
-                    "r");
-
-    if (fp == nullptr) {
-      return -1;
-    }
-
-    std::vector<char> buffer(512);
-
-    if (fread(buffer.data(), sizeof(char), buffer.size(), fp) < 0)
-      return 1;
-
-    std::string strbuf(buffer.data());
-
-    auto equalsPos = strbuf.find('=');
-    auto lfPos = strbuf.find('\n');
-    if (lfPos == std::string::npos)
-      lfPos = strbuf.size();
-
-    auto timestamp = strbuf.substr(equalsPos + 1, lfPos - equalsPos - 1);
-
-    auto monotonicRuntime = static_cast<long long>(std::stoll(timestamp) / 1e6);
-
-    timespec currentMonotonicTime{};
-    timespec currentRealTime{};
-
-    clock_gettime(CLOCK_MONOTONIC, &currentMonotonicTime);
-    clock_gettime(CLOCK_REALTIME, &currentRealTime);
-
-    auto offset = currentRealTime.tv_sec - currentMonotonicTime.tv_sec;
-
-    return monotonicRuntime + offset;
-  };
-
-  auto serviceStartTime = getServiceStartTime();
-
-  // check if something has failed horribly
-  if (serviceStartTime < 0 || ownBinaryMTime < 0)
-    return false;
-
-  return serviceStartTime > ownBinaryMTime;
-}
-
-bool isAppImage(const QString &path) {
-  const auto type = appimage_get_type(path.toUtf8(), false);
-  return type > 0 && type <= 2;
+bool isAppImage(const QString& path) {
+    const auto type = appimage_get_type(path.toUtf8(), false);
+    return type > 0 && type <= 2;
 }
 
 QString which(const std::string &name) {

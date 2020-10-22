@@ -129,103 +129,66 @@ Podcasts:
 
 A few articles have been written about AppImageLauncher already:
 
-- https://www.linuxuprising.com/2018/04/easily-run-and-integrate-appimage-files.html
-  (English)
-- https://www.freeyourdesktop.com/2018/07/install-manage-appimages-with-appimagelauncher/
-  (English)
-  - same article also available here:
-    https://medium.com/@freeyourdesktopblog/install-manage-appimages-with-appimagelauncher-2a2078c55f37
-- http://linux-os.net/appimagelauncher-ejecuta-e-integra-facilmente-aplicaciones-en-appimage/
-  (Spanish)
-  - same article also available here:
-    https://blog.desdelinux.net/appimagelauncher-ejecuta-e-integra-facilmente-aplicaciones-en-appimage/
-- http://www.edivaldobrito.com.br/integrador-appimagelauncher-no-linux/
-  (Portuguese)
-- https://404.g-net.pl/2018/08/appimagelauncher/ (Polish)
-- https://linuxmint.hu/blog/2018/12/appimage (Hungarian)
-- https://www.freeyourdesktop.com/2018/07/install-manage-appimages-with-appimagelauncher/
-  (English)
-  - please note that AppImageLauncher could _not_ be "installed" via AppImage at
-    that time, only recently we added a Lite version that now can be installed
-    from an AppImage (more information will follow soon!)
-- https://forum.pardus.org.tr/t/appimagelauncher-tek-tiklama-ile-appimage-sisteminizle-butunlestiriniz/11275
-  (Turkish)
-- https://linuxteamvietnam.us/cach-chay-ung-dung-dinh-dang-appimage-tren-linux/
-  (Vietnamese)
-  - contains a few wrong assumptions: as soon as AppImageLauncher is installed,
-    you do not have to make AppImages executable, you can just double-click tem
-    (or otherwise open them, e.g., from your browsers' downloads)
-- https://www.reallinuxuser.com/15-best-things-to-do-after-installing-zorin-os-15/
-  (English)
-- https://manjaro.site/how-to-install-appimage-launcher-on-ubuntu-19-04/
-  (English)
-- https://cubiclenate.com/2020/01/09/appimagelauncher-appimage-manager-on-opensuse/
-  (English)
-  - see also:
-    https://cubiclenate.com/2020/01/10/noodlings-lighting-the-emby-server-with-kdenlive/
-- https://chrisrmiller.com/2019/05/29/integrate-appimages-into-your-linux-distro/
-  (English)
-- https://medium.com/@freeyourdesktopblog/install-manage-appimages-with-appimagelauncher-2a2078c55f37
-  (English)
-- https://dolys.fr/forums/topic/gerer-les-appimage-sous-linux/ (French)
+  - https://www.linuxuprising.com/2018/04/easily-run-and-integrate-appimage-files.html (English)
+  - https://www.freeyourdesktop.com/2018/07/install-manage-appimages-with-appimagelauncher/ (English)
+    - same article also available here: https://medium.com/@freeyourdesktopblog/install-manage-appimages-with-appimagelauncher-2a2078c55f37
+  - http://linux-os.net/appimagelauncher-ejecuta-e-integra-facilmente-aplicaciones-en-appimage/ (Spanish)
+    - same article also available here: https://blog.desdelinux.net/appimagelauncher-ejecuta-e-integra-facilmente-aplicaciones-en-appimage/
+  - http://www.edivaldobrito.com.br/integrador-appimagelauncher-no-linux/ (Portuguese)
+  - https://404.g-net.pl/2018/08/appimagelauncher/ (Polish)
+  - https://linuxmint.hu/blog/2018/12/appimage (Hungarian)
+  - https://www.freeyourdesktop.com/2018/07/install-manage-appimages-with-appimagelauncher/ (English)
+    - please note that AppImageLauncher could *not* be "installed" via AppImage at that time, only recently we added a Lite version that now can be installed from an AppImage (more information will follow soon!)
+  - https://forum.pardus.org.tr/t/appimagelauncher-tek-tiklama-ile-appimage-sisteminizle-butunlestiriniz/11275 (Turkish)
+  - https://linuxteamvietnam.us/cach-chay-ung-dung-dinh-dang-appimage-tren-linux/ (Vietnamese)
+    - contains a few wrong assumptions: as soon as AppImageLauncher is installed, you do not have to make AppImages executable, you can just double-click tem (or otherwise open them, e.g., from your browsers' downloads)
+  - https://www.reallinuxuser.com/15-best-things-to-do-after-installing-zorin-os-15/ (English)
+  - https://manjaro.site/how-to-install-appimage-launcher-on-ubuntu-19-04/ (English)
+  - https://cubiclenate.com/2020/01/09/appimagelauncher-appimage-manager-on-opensuse/ (English)
+    - see also: https://cubiclenate.com/2020/01/10/noodlings-lighting-the-emby-server-with-kdenlive/
+  - https://chrisrmiller.com/2019/05/29/integrate-appimages-into-your-linux-distro/ (English)
+  - https://medium.com/@freeyourdesktopblog/install-manage-appimages-with-appimagelauncher-2a2078c55f37 (English)
+  - https://dolys.fr/forums/topic/gerer-les-appimage-sous-linux/ (French)
+  - https://linux-user.gr/t/eykolh-chrhsh-efarmogwn-appimage/2066 (Greek)
 
 ## Installation
 
 ### System wide Installation
 
-AppImageLauncher is supposed to integrate deeply in the systems. Therefore, an
-installation via native system packages is the preferred way to install
-AppImageLauncher. This way, AppImageLauncher's package can perform the necessary
-steps to have your system use it for all AppImage invocations.
+AppImageLauncher is supposed to integrate deeply in the systems. Therefore, an installation via native system packages is the preferred way to install AppImageLauncher. This way, AppImageLauncher's package can perform the necessary steps to have your system use it for all AppImage invocations.
 
-Compatibility table (likely incomplete, please feel free to send PRs to add
-distributions)
+Compatibility table (likely incomplete, please feel free to send PRs to add distributions)
 
-| Release filename                                         | Build system      | Compatible distributions (incomplete)                                                                                                     |
-| -------------------------------------------------------- | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `appimagelauncher-<version>.xenial_(amd64,i386).deb`     | Ubuntu xenial     | Ubuntu xenial (16.04), Debian stretch (9), Netrunner 17.01                                                                                |
-| `appimagelauncher-<version>.bionic_(amd64,i386).deb`     | Ubuntu bionic     | Ubuntu bionic (18.04), Ubuntu disco (19.04), Ubuntu eoan (19.10) and newer, Debian buster (1) and newer, Netrunner 19.01, 19.08 and newer |
-| ~~`appimagelauncher-<version>.disco_(amd64,i386).deb`~~  | ~~Ubuntu disco~~  | ~~Ubuntu disco (19.04)~~                                                                                                                  |
-| ~~`appimagelauncher-<version>.eoan_(amd64,i386).deb`~~   | ~~Ubuntu eoan~~   | ~~Ubuntu eoan (19.10) and newer~~                                                                                                         |
-| ~~`appimagelauncher-<version>.buster_(amd64,i386).deb`~~ | ~~Debian buster~~ | ~~Debian buster (10) and newer, Netrunner 19.01 and 19.08~~                                                                               |
-| `appimagelauncher-<version>.(i386,x86_64).rpm`           | Ubuntu xenial     | openSUSE Leap 42 and newer, possibly openSUSE Tumbleweed, SUSE Enterprise Linux, RHEL 7, CentOS 7                                         |
+| Release filename | Build system | Compatible distributions (incomplete) |
+| ---------------- | ------------ | ------------------------------------- |
+| `appimagelauncher-<version>.xenial_(amd64,i386).deb` | Ubuntu xenial | Ubuntu xenial (16.04), Debian stretch (9), Netrunner 17.01 |
+| `appimagelauncher-<version>.bionic_(amd64,i386).deb` | Ubuntu bionic | Ubuntu bionic (18.04), Ubuntu disco (19.04), Ubuntu eoan (19.10) and newer, Debian buster (10) and newer, Netrunner 19.01, 19.08 and newer |
+| ~~`appimagelauncher-<version>.disco_(amd64,i386).deb`~~  | ~~Ubuntu disco~~  | ~~Ubuntu disco (19.04)~~ |
+| ~~`appimagelauncher-<version>.eoan_(amd64,i386).deb`~~   | ~~Ubuntu eoan~~   | ~~Ubuntu eoan (19.10) and newer~~ |
+| ~~`appimagelauncher-<version>.buster_(amd64,i386).deb`~~ | ~~Debian buster~~ | ~~Debian buster (10) and newer, Netrunner 19.01 and 19.08~~ |
+| `appimagelauncher-<version>.(i386,x86_64).rpm`       | Ubuntu xenial | openSUSE Leap 42 and newer, possibly openSUSE Tumbleweed, SUSE Enterprise Linux, RHEL 7, CentOS 7 |
 
-- Ubuntu trusty (14.04) and newer
-  - **Important:** Ubuntu bionic (and newer) broke with the backwards
-    compatibility of its `libcurl` packages, therefore users of these systems
-    need to install the special `bionic` package
-- Debian stable (jessie, 8) and newer
-- Netrunner 17 and newer
-- openSUSE Leap 42 and newer
-- openSUSE Tumbleweed
+  - Ubuntu trusty (14.04) and newer
+    - **Important:** Ubuntu bionic (and newer) broke with the backwards compatibility of its `libcurl` packages, therefore users of these systems need to install the special `bionic` package
+  - Debian stable (jessie, 8) and newer
+  - Netrunner 17 and newer
+  - openSUSE Leap 42 and newer
+  - openSUSE Tumbleweed
 
-The installation of packages on systems with a set of packages similar to one of
-the listed ones (e.g., Linux Mint, Fedora, etc.) should work as well.
+The installation of packages on systems with a set of packages similar to one of the listed ones (e.g., Linux Mint, Fedora, etc.) should work as well.
 
-**Note:** For Ubuntu 19.04 and newer as well as derivatives, there's two PPAs
-(personal package archives) available providing a simple way to install and
-update AppImageLauncher (thanks [Peter Jonas](https://github.com/shoogle) for
-creating and maintaining them):
+**Note:** For Ubuntu 19.04 and newer as well as derivatives, there's two PPAs (personal package archives) available providing a simple way to install and update AppImageLauncher (thanks [Peter Jonas](https://github.com/shoogle) for creating and maintaining them):
 
-- stable (provides all releases):
-  https://launchpad.net/~appimagelauncher-team/+archive/ubuntu/stable
-- daily (latest and greatest but possibly unstable):
-  https://launchpad.net/~appimagelauncher-team/+archive/ubuntu/daily
+  - stable (provides all releases): https://launchpad.net/~appimagelauncher-team/+archive/ubuntu/stable
+  - daily (latest and greatest but possibly unstable): https://launchpad.net/~appimagelauncher-team/+archive/ubuntu/daily
 
-Manjaro and Netrunner Rolling users can install AppImageLauncher with a
-distribution-provided package called `appimagelauncher`.
+Manjaro and Netrunner Rolling users can install AppImageLauncher with a distribution-provided package called `appimagelauncher`.
 
-Arch Linux, Manjaro, Antergos and Netrunner Rolling users can use AUR to install
-AppImageLauncher by installing
-[appimagelauncher-git](https://aur.archlinux.org/packages/appimagelauncher-git)
-(thanks @NuLogicSystems for setting up the build).
+Arch Linux, Manjaro, Antergos and Netrunner Rolling users can use AUR to install AppImageLauncher by installing [appimagelauncher-git](https://aur.archlinux.org/packages/appimagelauncher-git) (thanks @NuLogicSystems for setting up the build).
 
-Other systems derived from the listed ones, such as for instance Linux Mint
-(Ubuntu), should support AppImageLauncher as well. If they don't, please don't
-hesitate to create an issue on GitHub.
+Other systems derived from the listed ones, such as for instance Linux Mint (Ubuntu), should support AppImageLauncher as well. If they don't, please don't hesitate to create an issue on GitHub.
 
-**Note:** If your system is not listed above as supported, please feel free to
-request support in an issue on GitHub. We can then discuss adding support.
+**Note:** If your system is not listed above as supported, please feel free to request support in an issue on GitHub. We can then discuss adding support.   
 
 ### Build from source
 

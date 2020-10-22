@@ -40,11 +40,14 @@ bool makeExecutable(const QString &path);
 // removes executable bits from file's permissions
 bool makeNonExecutable(const QString &path);
 
-// installs desktop file for given AppImage, including AppImageLauncher specific
-// modifications set resolveCollisions to false in order to leave the Name
-// entries as-is
-bool installDesktopFileAndIcons(const QString &pathToAppImage,
-                                bool resolveCollisions = true);
+#ifndef BUILD_LITE
+// calculate path to private libdir, containing tools and libraries specific to and used by AppImageLauncher
+QString privateLibDirPath(const QString& srcSubdirName);
+#endif
+
+// installs desktop file for given AppImage, including AppImageLauncher specific modifications
+// set resolveCollisions to false in order to leave the Name entries as-is
+bool installDesktopFileAndIcons(const QString& pathToAppImage, bool resolveCollisions = true);
 
 // update AppImage's existing desktop file with AppImageLauncher specific
 // entries this alias for installDesktopFileAndIcons does not perform any
@@ -116,10 +119,6 @@ std::shared_ptr<char> getOwnBinaryPath();
 // returns true if AppImageLauncher was updated since the desktop file for a
 // given AppImage has been updated last
 bool desktopFileHasBeenUpdatedSinceLastUpdate(const QString &pathToAppImage);
-
-// returns true if the AppImageLauncherFS service was restarted since the last
-// AppImageLauncher update
-bool fsDaemonHasBeenRestartedSinceLastUpdate();
 
 // checks whether a file is an AppImage
 bool isAppImage(const QString &path);
