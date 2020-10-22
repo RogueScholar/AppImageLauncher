@@ -8,36 +8,35 @@
 #include <QListWidgetItem>
 #include <QSettings>
 
-
 namespace Ui {
-    class SettingsDialog;
+  class SettingsDialog;
 }
 
-class SettingsDialog : public QDialog {
-Q_OBJECT
+class SettingsDialog: public QDialog {
+  Q_OBJECT
 
-public:
-    explicit SettingsDialog(QWidget* parent = nullptr);
+ public:
+  explicit SettingsDialog(QWidget *parent = nullptr);
 
-    ~SettingsDialog() override;
+  ~SettingsDialog() override;
 
-protected slots:
-    void onChooseAppsDirClicked();
-    void onAddDirectoryToWatchButtonClicked();
-    void onRemoveDirectoryToWatchButtonClicked();
-    void onDirectoryToWatchItemActivated(QListWidgetItem* item);
+ protected slots:
+  void onChooseAppsDirClicked();
+  void onAddDirectoryToWatchButtonClicked();
+  void onRemoveDirectoryToWatchButtonClicked();
+  void onDirectoryToWatchItemActivated(QListWidgetItem *item);
 
-    void onDialogAccepted();
+  void onDialogAccepted();
 
-private:
-    void loadSettings();
+ private:
+  void loadSettings();
 
-    void saveSettings();
+  void saveSettings();
 
-    void toggleDaemon();
+  void toggleDaemon();
 
-    void addDirectoryToWatchToListView(const QString& dirPath);
+  void addDirectoryToWatchToListView(const QString &dirPath);
 
-    Ui::SettingsDialog* ui;
-    std::shared_ptr<QSettings> settingsFile;
+  Ui::SettingsDialog *ui;
+  std::shared_ptr<QSettings> settingsFile;
 };

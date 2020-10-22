@@ -9,8 +9,8 @@
 #include "shared.h"
 #include "ui_settings_dialog.h"
 
-SettingsDialog::SettingsDialog(QWidget *parent)
-    : QDialog(parent), ui(new Ui::SettingsDialog) {
+SettingsDialog::SettingsDialog(QWidget *parent):
+    QDialog(parent), ui(new Ui::SettingsDialog) {
   ui->setupUi(this);
 
   ui->applicationsDirLineEdit->setPlaceholderText(
@@ -27,28 +27,40 @@ SettingsDialog::SettingsDialog(QWidget *parent)
   ui->askMoveCheckBox->setEnabled(false);
 #endif
 
-  connect(ui->buttonBox, &QDialogButtonBox::accepted, this,
+  connect(ui->buttonBox,
+          &QDialogButtonBox::accepted,
+          this,
           &SettingsDialog::onDialogAccepted);
-  connect(ui->chooseAppsDirToolButton, &QToolButton::released, this,
+  connect(ui->chooseAppsDirToolButton,
+          &QToolButton::released,
+          this,
           &SettingsDialog::onChooseAppsDirClicked);
-  connect(ui->additionalDirsAddButton, &QToolButton::released, this,
+  connect(ui->additionalDirsAddButton,
+          &QToolButton::released,
+          this,
           &SettingsDialog::onAddDirectoryToWatchButtonClicked);
-  connect(ui->additionalDirsRemoveButton, &QToolButton::released, this,
+  connect(ui->additionalDirsRemoveButton,
+          &QToolButton::released,
+          this,
           &SettingsDialog::onRemoveDirectoryToWatchButtonClicked);
-  connect(ui->additionalDirsListWidget, &QListWidget::itemActivated, this,
+  connect(ui->additionalDirsListWidget,
+          &QListWidget::itemActivated,
+          this,
           &SettingsDialog::onDirectoryToWatchItemActivated);
-  connect(ui->additionalDirsListWidget, &QListWidget::itemClicked, this,
+  connect(ui->additionalDirsListWidget,
+          &QListWidget::itemClicked,
+          this,
           &SettingsDialog::onDirectoryToWatchItemActivated);
 
   QStringList availableFeatures;
 
 #ifdef ENABLE_UPDATE_HELPER
   availableFeatures
-      << "<span style='color: green;'>✔</span> " +
-             tr("updater available for AppImages supporting AppImageUpdate");
+      << "<span style='color: green;'>✔</span> "
+             + tr("updater available for AppImages supporting AppImageUpdate");
 #else
-  availableFeatures << "<span style='color: red;'>🞬</span> " +
-                           tr("updater unavailable");
+  availableFeatures << "<span style='color: red;'>🞬</span> "
+                           + tr("updater unavailable");
 #endif
 
 #ifdef BUILD_LITE
@@ -67,7 +79,9 @@ SettingsDialog::SettingsDialog(QWidget *parent)
   ui->tabWidget->setCurrentWidget(ui->launcherTab);
 }
 
-SettingsDialog::~SettingsDialog() { delete ui; }
+SettingsDialog::~SettingsDialog() {
+  delete ui;
+}
 
 void SettingsDialog::addDirectoryToWatchToListView(const QString &dirPath) {
   // empty paths are not permitted
@@ -86,23 +100,23 @@ void SettingsDialog::addDirectoryToWatchToListView(const QString &dirPath) {
     for (const auto &i : names) {
       auto icon = QIcon::fromTheme(i, loadIconWithFallback(i));
 
-      if (!icon.isNull())
+      if (! icon.isNull())
         return icon;
     }
 
-    return QIcon{};
+  return QIcon {};
   };
 
-  if (dir.exists()) {
-    icon = findIcon({"folder"});
-  } else {
-    // TODO: search for more meaningful icon, "remove" doesn't really show the
-    // directory is missing
-    icon = findIcon({"remove"});
-  }
+    if (dir.exists()) {
+      icon = findIcon({ "folder" });
+    } else {
+      // TODO: search for more meaningful icon, "remove" doesn't really show the
+      // directory is missing
+      icon = findIcon({ "remove" });
+    }
 
-  if (icon.isNull()) {
-    qDebug() << "item icon unavailable, using fallback";
+    if (icon.isNull()) {
+      qDebug() << "item icon unavailable, using fallback";
   }
 
   auto *item = new QListWidgetItem(icon, dirPath);
@@ -112,10 +126,10 @@ void SettingsDialog::addDirectoryToWatchToListView(const QString &dirPath) {
 void SettingsDialog::loadSettings() {
   settingsFile = getConfig();
 
-  // make sure settingsFile is populated, even if it's just an empty settings
-  // object this prevents segfaults when querying data from it
-  if (settingsFile == nullptr) {
-    settingsFile.reset(new QSettings{});
+    // make sure settingsFile is populated, even if it's just an empty settings
+    // object this prevents segfaults when querying data from it
+    if (settingsFile == nullptr) {
+      settingsFile.reset(new QSettings {});
   }
 
   const auto daemonIsEnabled =
@@ -123,19 +137,19 @@ void SettingsDialog::loadSettings() {
   const auto askMoveChecked =
       settingsFile->value("AppImageLauncher/ask_to_move", "true").toBool();
 
-  if (settingsFile) {
-    ui->daemonIsEnabledCheckBox->setChecked(daemonIsEnabled);
-    ui->askMoveCheckBox->setChecked(askMoveChecked);
-    ui->applicationsDirLineEdit->setText(
-        settingsFile->value("AppImageLauncher/destination").toString());
+    if (settingsFile) {
+      ui->daemonIsEnabledCheckBox->setChecked(daemonIsEnabled);
+      ui->askMoveCheckBox->setChecked(askMoveChecked);
+      ui->applicationsDirLineEdit->setText(
+          settingsFile->value("AppImageLauncher/destination").toString());
 
-    const auto additionalDirsPath =
-        settingsFile
-            ->value("appimagelauncherd/additional_directories_to_watch", "")
-            .toString();
-    for (const auto &dirPath : additionalDirsPath.split(":")) {
-      addDirectoryToWatchToListView(dirPath);
-    }
+      const auto additionalDirsPath =
+          settingsFile
+              ->value("appimagelauncherd/additional_directories_to_watch", "")
+              .toString();
+        for (const auto &dirPath : additionalDirsPath.split(":")) {
+          addDirectoryToWatchToListView(dirPath);
+        }
   }
 }
 
@@ -150,11 +164,11 @@ void SettingsDialog::saveSettings() {
   {
     QListWidgetItem *currentItem;
 
-    for (int i = 0;
-         (currentItem = ui->additionalDirsListWidget->item(i)) != nullptr;
-         ++i) {
-      additionalDirsToWatch << currentItem->text();
-    }
+      for (int i = 0;
+           (currentItem = ui->additionalDirsListWidget->item(i)) != nullptr;
+           ++i) {
+        additionalDirsToWatch << currentItem->text();
+      }
   }
 
   // temporary workaround to fill in the monitorMountedFilesystems with the same
@@ -167,35 +181,37 @@ void SettingsDialog::saveSettings() {
     static constexpr auto oldKey =
         "appimagelauncherd/monitor_mounted_filesystems";
 
-    // getConfig might return a null pointer if the config file doesn't exist
-    // we have to handle this, obviously
-    if (oldSettings != nullptr && oldSettings->contains(oldKey)) {
-      const auto oldValue = oldSettings->value(oldKey).toBool();
-      monitorMountedFilesystems = oldValue ? 1 : 0;
+      // getConfig might return a null pointer if the config file doesn't exist
+      // we have to handle this, obviously
+      if (oldSettings != nullptr && oldSettings->contains(oldKey)) {
+        const auto oldValue       = oldSettings->value(oldKey).toBool();
+        monitorMountedFilesystems = oldValue ? 1 : 0;
     }
   }
 
   createConfigFile(ui->askMoveCheckBox->isChecked(),
                    ui->applicationsDirLineEdit->text(),
                    ui->daemonIsEnabledCheckBox->isChecked(),
-                   additionalDirsToWatch, monitorMountedFilesystems);
+                   additionalDirsToWatch,
+                   monitorMountedFilesystems);
 
   // reload settings
   loadSettings();
 }
 
 void SettingsDialog::toggleDaemon() {
-  // assumes defaults if config doesn't exist or lacks the related key(s)
-  if (settingsFile) {
-    if (settingsFile->value("AppImageLauncher/enable_daemon", "true")
-            .toBool()) {
-      system("systemctl --user enable  appimagelauncherd.service");
-      // we want to actually restart the service to apply the new configuration
-      system("systemctl --user restart appimagelauncherd.service");
-    } else {
-      system("systemctl --user disable appimagelauncherd.service");
-      system("systemctl --user stop    appimagelauncherd.service");
-    }
+    // assumes defaults if config doesn't exist or lacks the related key(s)
+    if (settingsFile) {
+        if (settingsFile->value("AppImageLauncher/enable_daemon", "true")
+                .toBool()) {
+          system("systemctl --user enable  appimagelauncherd.service");
+          // we want to actually restart the service to apply the new
+          // configuration
+          system("systemctl --user restart appimagelauncherd.service");
+        } else {
+          system("systemctl --user disable appimagelauncherd.service");
+          system("systemctl --user stop    appimagelauncherd.service");
+        }
   }
 }
 
@@ -210,9 +226,9 @@ void SettingsDialog::onChooseAppsDirClicked() {
   // to enforce the Qt one See #218 for more information
   fileDialog.setOption(QFileDialog::DontUseNativeDialog, true);
 
-  if (fileDialog.exec()) {
-    QString dirPath = fileDialog.selectedFiles().first();
-    ui->applicationsDirLineEdit->setText(dirPath);
+    if (fileDialog.exec()) {
+      QString dirPath = fileDialog.selectedFiles().first();
+      ui->applicationsDirLineEdit->setText(dirPath);
   }
 }
 
@@ -228,9 +244,9 @@ void SettingsDialog::onAddDirectoryToWatchButtonClicked() {
   // to enforce the Qt one See #218 for more information
   fileDialog.setOption(QFileDialog::DontUseNativeDialog, true);
 
-  if (fileDialog.exec()) {
-    QString dirPath = fileDialog.selectedFiles().first();
-    addDirectoryToWatchToListView(dirPath);
+    if (fileDialog.exec()) {
+      QString dirPath = fileDialog.selectedFiles().first();
+      addDirectoryToWatchToListView(dirPath);
   }
 }
 
@@ -248,9 +264,9 @@ void SettingsDialog::onRemoveDirectoryToWatchButtonClicked() {
   auto deletedItem = widget->takeItem(index);
   delete deletedItem;
 
-  // we should deactivate the remove button once the last item is gone
-  if (widget->item(0) == nullptr) {
-    ui->additionalDirsRemoveButton->setEnabled(false);
+    // we should deactivate the remove button once the last item is gone
+    if (widget->item(0) == nullptr) {
+      ui->additionalDirsRemoveButton->setEnabled(false);
   }
 }
 

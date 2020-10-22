@@ -41,13 +41,16 @@ bool makeExecutable(const QString &path);
 bool makeNonExecutable(const QString &path);
 
 #ifndef BUILD_LITE
-// calculate path to private libdir, containing tools and libraries specific to and used by AppImageLauncher
-QString privateLibDirPath(const QString& srcSubdirName);
+// calculate path to private libdir, containing tools and libraries specific to
+// and used by AppImageLauncher
+QString privateLibDirPath(const QString &srcSubdirName);
 #endif
 
-// installs desktop file for given AppImage, including AppImageLauncher specific modifications
-// set resolveCollisions to false in order to leave the Name entries as-is
-bool installDesktopFileAndIcons(const QString& pathToAppImage, bool resolveCollisions = true);
+// installs desktop file for given AppImage, including AppImageLauncher specific
+// modifications set resolveCollisions to false in order to leave the Name
+// entries as-is
+bool installDesktopFileAndIcons(const QString &pathToAppImage,
+                                bool resolveCollisions = true);
 
 // update AppImage's existing desktop file with AppImageLauncher specific
 // entries this alias for installDesktopFileAndIcons does not perform any
@@ -72,7 +75,7 @@ IntegrationState integrateAppImage(const QString &pathToAppImage,
 void createConfigFile(int askToMove, const QString &destination,
                       int enableDaemon,
                       const QStringList &additionalDirsToWatch = {},
-                      int monitorMountedFilesystems = -1);
+                      int monitorMountedFilesystems            = -1);
 
 // replaces ~ character in paths with real home directory, if necessary and
 // possible
@@ -88,13 +91,13 @@ QDir integratedAppImagesDestination();
 // be within (i.e., shall not ask whether to move to the main location, if
 // they're in one of these, it's all good)
 QSet<QString>
-additionalAppImagesLocations(bool includeValidMountPoints = false);
+    additionalAppImagesLocations(bool includeValidMountPoints = false);
 
 // calculate list of directories the daemon has to watch
 // AppImages inside there should furthermore not be moved out of there and into
 // the main integration directory
-QDirSet
-daemonDirectoriesToWatch(const std::shared_ptr<QSettings> &config = nullptr);
+QDirSet daemonDirectoriesToWatch(
+    const std::shared_ptr<QSettings> &config = nullptr);
 
 // build path to standard location for integrated AppImages
 QString buildPathToIntegratedAppImage(const QString &pathToAppImage);

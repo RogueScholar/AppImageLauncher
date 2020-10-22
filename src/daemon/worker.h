@@ -6,26 +6,26 @@
 
 #pragma once
 
-class Worker : public QObject {
-    Q_OBJECT
+class Worker: public QObject {
+  Q_OBJECT
 
-private:
-    class PrivateData;
-    std::shared_ptr<PrivateData> d = nullptr;
+ private:
+  class PrivateData;
+  std::shared_ptr<PrivateData> d = nullptr;
 
-public:
-    Worker();
+ public:
+  Worker();
 
-signals:
-    void startTimer();
+ signals:
+  void startTimer();
 
-public slots:
-    void scheduleForIntegration(const QString& path);
-    void scheduleForUnintegration(const QString& path);
+ public slots:
+  void scheduleForIntegration(const QString &path);
+  void scheduleForUnintegration(const QString &path);
 
-public slots:
-    void executeDeferredOperations();
+ public slots:
+  void executeDeferredOperations();
 
-private slots:
-    void startTimerIfNecessary();
+ private slots:
+  void startTimerIfNecessary();
 };

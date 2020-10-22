@@ -1,10 +1,9 @@
 ---
 name: Bug report
 about: Report a bug to help us improve
-title: ''
+title: ""
 labels: bug, needs verification
-assignees: ''
-
+assignees: ""
 ---
 
 <!--
@@ -14,26 +13,31 @@ See also: <https://www.chiark.greenend.org.uk/~sgtatham/bugs.html>
 -->
 
 **Describe the bug**
+
 <!-- A clear and concise description of the bug. -->
 
 **Expected behavior**
+
 <!-- A clear and concise description of what you expected to happen. -->
 
-**To Reproduce**
-Steps to reproduce the behavior:
+**To Reproduce** Steps to reproduce the behavior:
+
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
 4. See error
 
 **Screenshots**
+
 <!-- If applicable, add screenshots to help explain your problem.
 
 **System, software and AppImage information**
 <!-- Your distribution and desktop environment (including version numbers) -->
 
-AppImageLauncher version installed: [...] (also include where you got it from, e.g., our release page, your distribution, ...) -->
+AppImageLauncher version installed: [...] (also include where you got it from,
+e.g., our release page, your distribution, ...) -->
 
 **List of AppImages you tried:**
-- 
-- 
+
+-
+-

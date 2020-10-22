@@ -13,13 +13,9 @@
  * Creates Commands.
  */
 
-namespace appimagelauncher {
-    namespace cli {
-        namespace commands {
-            class CommandFactory {
-            public:
-                static std::shared_ptr<Command> getCommandByName(const QString&);
-            };
-        }
-    }
-}
+namespace appimagelauncher { namespace cli { namespace commands {
+  class CommandFactory {
+   public:
+    static std::shared_ptr<Command> getCommandByName(const QString &);
+  };
+}}}  // namespace appimagelauncher::cli::commands

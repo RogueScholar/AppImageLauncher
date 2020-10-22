@@ -27,17 +27,17 @@ git submodule update --init --recursive
 All dependencies need to be installed as development libraries. Some names may
 differ on your system.
 
-- make
-- cmake
-- glib-2
-- cairo
-- librsvg
-- fuse
-- libarchive
-- libXpm
-- qt5
-- libcurl
-- boost
+-   make
+-   cmake
+-   glib-2
+-   cairo
+-   librsvg
+-   fuse
+-   libarchive
+-   libXpm
+-   qt5
+-   libcurl
+-   boost
 
 ## Build
 

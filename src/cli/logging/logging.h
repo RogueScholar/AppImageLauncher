@@ -4,8 +4,8 @@
 #include <string.h>
 
 // library headers
-#include <QTextStream>
 #include <QDebug>
+#include <QTextStream>
 
 // wrapper for stdout
 #define qout() QTextStream(stdout, QIODevice::WriteOnly)

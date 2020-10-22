@@ -9,9 +9,10 @@
 
 // local headers
 #include "translationmanager.h"
+
 #include <shared.h>
 
-TranslationManager::TranslationManager(QCoreApplication &app) : app(app) {
+TranslationManager::TranslationManager(QCoreApplication &app): app(app) {
   // set up translations
   auto qtTranslator = new QTranslator();
   qtTranslator->load("qt_" + QLocale::system().name(),
@@ -37,10 +38,10 @@ TranslationManager::TranslationManager(QCoreApplication &app) : app(app) {
 }
 
 TranslationManager::~TranslationManager() {
-  for (auto &translator : installedTranslators) {
-    delete translator;
-    translator = nullptr;
-  }
+    for (auto &translator : installedTranslators) {
+      delete translator;
+      translator = nullptr;
+    }
 }
 
 QString TranslationManager::getTranslationDir() {
@@ -56,22 +57,22 @@ QString TranslationManager::getTranslationDir() {
   // on the binary location
   auto translationDir = binaryDirPath + "/../../i18n/generated/l10n";
 
-  // when the application is installed, we need to look for the files in the
-  // private data directory
-  if (!QDir(translationDir).exists()) {
-    auto privateDataDir = pathToPrivateDataDirectory();
-    if (!privateDataDir.isEmpty()) {
-      translationDir = privateDataDir + "/l10n";
-    }
+    // when the application is installed, we need to look for the files in the
+    // private data directory
+    if (! QDir(translationDir).exists()) {
+      auto privateDataDir = pathToPrivateDataDirectory();
+        if (! privateDataDir.isEmpty()) {
+          translationDir = privateDataDir + "/l10n";
+      }
   }
 
-  // give the user (and dev) some feedback whether the translations could
-  // actually be found or not
-  if (!QDir(translationDir).exists()) {
-    std::cerr << "[AppImageLauncher] Warning: "
-              << "Translation directory could not be found, translations are "
-                 "likely not available"
-              << std::endl;
+    // give the user (and dev) some feedback whether the translations could
+    // actually be found or not
+    if (! QDir(translationDir).exists()) {
+      std::cerr << "[AppImageLauncher] Warning: "
+                << "Translation directory could not be found, translations are "
+                   "likely not available"
+                << std::endl;
   }
 
   return translationDir;

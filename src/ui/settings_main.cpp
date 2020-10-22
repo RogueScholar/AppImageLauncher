@@ -3,6 +3,7 @@
 
 // local
 #include "settings_dialog.h"
+
 #include <shared.h>
 #include <translationmanager.h>
 

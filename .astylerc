@@ -1,0 +1,20 @@
+# Author: Peter J. Mello <admin@petermello.net>
+# Version: 1.0.0 (Using <https://semver.org/>)
+# Updated: 2020-08-12
+# SPDX-License-Identifier: MPL-2.0
+# Visit <http://astyle.sourceforge.net/astyle.html> for more info on AStyle.
+
+style=google
+
+lineend=linux
+suffix=none
+
+indent=tab=2
+max-code-length=80
+
+align-pointer=name
+align-reference=name
+attach-closing-while
+delete-empty-lines
+pad-first-paren-out
+pad-header

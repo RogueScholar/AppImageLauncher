@@ -1,0 +1,96 @@
+# Author: Peter J. Mello <admin@petermello.net>
+# Version: 1.0.0 (Using <https://semver.org/>)
+# Updated: 2020-08-12
+# SPDX-License-Identifier: MPL-2.0
+# Visit <https://clang.llvm.org/docs/ClangFormatStyleOptions.html> for more info.
+---
+Language: Cpp
+BasedOnStyle: LLVM
+AccessModifierOffset: -1
+AlignConsecutiveAssignments: true
+AlignConsecutiveBitFields: true
+AlignConsecutiveMacros: true
+AlignEscapedNewlines: Left
+AlignOperands: AlignAfterOperator
+AllowShortBlocksOnASingleLine: Empty
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortLambdasOnASingleLine: Empty
+BinPackArguments: false
+BraceWrapping:
+  IndentBraces: true
+  SplitEmptyFunction: false
+  SplitEmptyRecord: false
+  SplitEmptyNamespace: false
+BreakBeforeBinaryOperators: NonAssignment
+BreakBeforeBraces: Custom
+BreakConstructorInitializers: AfterColon
+BreakInheritanceList: AfterColon
+BreakStringLiterals: false
+CompactNamespaces: true
+Cpp11BracedListStyle: false
+ForEachMacros: ['BOOST_FOREACH', 'FOREACH', 'RANGES_FOREACH']
+IncludeBlocks:   Regroup
+IncludeCategories:
+  - Regex:        '^"(llvm|llvm-c|clang|clang-c)/'
+    Priority:     2
+  - Regex:        '^(<|"(gtest|gmock|isl|json)/)'
+    Priority:     3
+  - Regex:        '<[[:alnum:].]+>'
+    Priority:     4
+  - Regex:        '.*'
+    Priority:     1
+    SortPriority: 0
+IncludeIsMainRegex: '([-_](test|unittest))?$'
+IndentCaseLabels: true
+IndentCaseBlocks: true
+IndentExternBlock: Indent
+IndentGotoLabels: true
+IndentPPDirectives: BeforeHash
+IndentWidth: 2
+IndentWrappedFunctionNames: true
+JavaImportGroups: ['com', 'net', 'org']
+JavaScriptQuotes: Single
+KeepEmptyLinesAtTheStartOfBlocks: false
+NamespaceIndentation: All
+ObjCBinPackProtocolList: Always
+ObjCBlockIndentWidth: 4
+ObjCBreakBeforeNestedBlockParam: false
+ObjCSpaceBeforeProtocolList: false
+PointerAlignment: Right
+RawStringFormats:
+  - Language:        Cpp
+    Delimiters:
+      - cc
+      - CC
+      - cpp
+      - Cpp
+      - CPP
+      - 'c++'
+      - 'C++'
+    CanonicalDelimiter: ''
+    BasedOnStyle:    google
+  - Language:        TextProto
+    Delimiters:
+      - pb
+      - PB
+      - proto
+      - PROTO
+    EnclosingFunctions:
+      - EqualsProto
+      - EquivToProto
+      - PARSE_PARTIAL_TEXT_PROTO
+      - PARSE_TEST_PROTO
+      - PARSE_TEXT_PROTO
+      - ParseTextOrDie
+      - ParseTextProtoOrDie
+      - ParseTestProto
+      - ParsePartialTestProto
+    CanonicalDelimiter: ''
+    BasedOnStyle:    google
+SpaceAfterLogicalNot: true
+SpaceBeforeCpp11BracedList: true
+SpaceBeforeCtorInitializerColon: false
+SpaceBeforeInheritanceColon: false
+SpacesBeforeTrailingComments: 2
+TabWidth: 4
+...

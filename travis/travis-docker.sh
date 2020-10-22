@@ -47,13 +47,13 @@ docker build --cache-from "$IMAGE" -t "$IMAGE" -f "$DOCKERFILE" .
 # we can do that immediately once the image has been built successfully; if its definition ever changes it will be
 # rebuilt anyway
 # credentials shall only be available on (protected) master branch
-if [[ "$DOCKER_USERNAME" != "" ]]; then
+if [[ $DOCKER_USERNAME != ""   ]]; then
   echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin quay.io
   docker push "$IMAGE"
 fi
 
 # figure out which build script to use
-if [[ "$BUILD_LITE" == "" ]]; then
+if [[ $BUILD_LITE == ""   ]]; then
   build_script=travis-build.sh
 else
   build_script=build-lite.sh
