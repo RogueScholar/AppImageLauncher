@@ -28,7 +28,7 @@ bool copy_and_patch_runtime(int fd, const char* const appimage_filename, const s
 
     // erase magic bytes
     lseek(fd, 8, SEEK_SET);
-    char null_buf[]{0, 0, 0};
+    char null_buf[] {0, 0, 0};
     write(fd, null_buf, 3);
 
     // TODO: handle errors properly

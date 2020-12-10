@@ -106,12 +106,12 @@ bool is_32bit_elf(std::ifstream& ifs) {
     ifs.read(reinterpret_cast<char*>(&ehdr.e_ident), EI_NIDENT);
 
     switch (ehdr.e_ident[EI_CLASS]) {
-        case ELFCLASS32: {
-            return true;
-        }
-        case ELFCLASS64: {
-            return false;
-        }
+    case ELFCLASS32: {
+        return true;
+    }
+    case ELFCLASS64: {
+        return false;
+    }
     }
 
     throw std::logic_error{"ELF binary is neither 32-bit nor 64-bit"};
