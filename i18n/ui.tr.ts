@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="nb_NO">
+<TS version="2.1" language="tr">
 <context>
     <name>FirstRunDialog</name>
     <message>
         <location filename="../src/ui/first-run.ui" line="+20"/>
         <source>First run</source>
-        <translation>Førstegangs bruk</translation>
+        <translation>İlk çalıştırma</translation>
     </message>
     <message>
         <location line="+55"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Welcome to AppImageLauncher!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;This little helper is designed to improve your AppImage experience on your computer.&lt;/p&gt;&lt;p&gt;It appears you have never run AppImageLauncher before. Please take a minute and configure your preferences. You can always change these later on, using the control panel.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Velkommen til AppImageLauncher.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Denne lille hjelperen er designet for å forbedre din AppImage-opplevelse på din datamaskin.&lt;/p&gt;&lt;p&gt;Det ser ut til at du aldri har kjørt AppImageLauncher før. Bruk litt tid på å sette opp innstillingene dine. Du kan alltid endre disse senere, ved bruk av kontrollpanelet.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;AppImageLauncher uygulamasına hoş geldiniz!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Bu küçük yardımcı, bilgisayarınızdaki AppImage deneyiminizi iyileştirmek için tasarlanmıştır.&lt;/p&gt;&lt;p&gt;Görünüşe göre AppImageLauncher uygulamasını ilk defa çalıştırıyorsunuz. Lütfen bir dakikanızı ayırın ve tercihlerinizi yapılandırın. Bunları daha sonra kontrol panelini kullanarak istediğiniz zaman değiştirebilirsiniz.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location line="+22"/>
         <source>Ask me whether to move new AppImages into a central location</source>
-        <translation>Spør hvorvidt flytting til sentral plassering skal utføres for ethvert nytt AppImage</translation>
+        <translation>Yeni AppImages uygulamasının merkezi bir konuma taşınıp taşınmayacağını sor</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Integration target destination directory:</source>
-        <translation type="unfinished">Integrasjonsmål for målmappe:</translation>
+        <translation>Entegrasyon hedef dizini:</translation>
     </message>
     <message>
         <location line="+36"/>
         <source>Customize</source>
-        <translation>Tilpass</translation>
+        <translation>Özelleştir</translation>
     </message>
     <message>
         <location filename="../src/ui/first-run.cpp" line="+86"/>
         <source>Choose integration destination dir</source>
-        <translation type="unfinished">Velg integrasjonsmålmappe</translation>
+        <translation>Entegrasyon hedef dizinini seçin</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>(default)</source>
-        <translation>(forvalg)</translation>
+        <translation>(varsayılan)</translation>
     </message>
 </context>
 <context>
@@ -44,7 +44,7 @@
     <message>
         <location filename="../src/ui/integration_dialog.ui" line="+23"/>
         <source>Desktop Integration</source>
-        <translation type="unfinished">Skrivebordsintegrasjon</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+20"/>
@@ -68,12 +68,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="+41"/>
         <source>Integrate and run</source>
-        <translation type="unfinished">Integrer og kjør</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Run once</source>
-        <translation type="unfinished">Kjør én gang</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -81,7 +81,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/main.cpp" line="+385"/>
         <source>Warning</source>
-        <translation>Advarsel</translation>
+        <translation>Uyarı</translation>
     </message>
     <message>
         <source>AppImage has already been integrated, but it is not in the current integration destination directory.
@@ -102,24 +102,18 @@ Do you want to move it into the new destination?
 Choosing No will run the AppImage once, and leave the AppImage in its current directory.
 
 </source>
-        <translation type="unfinished">AppImage %1 har allerede blitt integrert, men det er ikke å finne i nåværende integrasjonsmålmapppe.
-
-Ønsker du å flytte det til den nye mappen?
-
-Å velge &quot;Nei&quot; vil kjøre AppImage én gang, og levne det i sin nåværende mappe.
-
-</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/shared/shared.cpp" line="+1232"/>
         <location line="+8"/>
         <source>Error</source>
-        <translation>Feil</translation>
+        <translation>Hata</translation>
     </message>
     <message>
         <location filename="../src/ui/main.cpp" line="+23"/>
         <source>Failed to unregister AppImage before re-integrating it</source>
-        <translation>Klarte ikke å avregistrere AppImage før re-integrering av det</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/shared/shared.cpp" line="-485"/>
@@ -127,10 +121,7 @@ Choosing No will run the AppImage once, and leave the AppImage in its current di
 Could not open file for reading:
 
 %1</source>
-        <translation>Kunne ikke tolke skrivebordsfiloversettelser:
-Kunne ikke åpne fil for lesing:
-
-%1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+11"/>
@@ -138,20 +129,17 @@ Kunne ikke åpne fil for lesing:
 Invalid syntax:
 
 %1</source>
-        <translation type="unfinished">Kunne ikke tolke skrivebordsfiloversettelser:
-Ugyldig syntaks:
-
-%1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+409"/>
         <source>File %1 is owned by another user: %2</source>
-        <translation>Filen %1 eies av en annen bruker: %2</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Permissions problem</source>
-        <translation>Tilgangsproblem</translation>
+        <translation>İzin sorunu</translation>
     </message>
     <message>
         <source>File %1 is owned by another user: %2
@@ -164,12 +152,12 @@ Relaunch with their permissions?</translation>
     <message>
         <location line="+52"/>
         <source>Failed to run permissions helper, exited with return code %1</source>
-        <translation type="unfinished">Klarte ikke å kjøre tilgangshjelper, avsluttet med returkode %1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Could not find suitable permissions helper, aborting</source>
-        <translation>Fant ikke passende tilgangshjelper, avbryter</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -183,17 +171,17 @@ Relaunch with their permissions?</translation>
         <location filename="../src/ui/update_main.cpp" line="+119"/>
         <location line="+42"/>
         <source>Error</source>
-        <translation>Feil</translation>
+        <translation>Hata</translation>
     </message>
     <message>
         <location filename="../src/ui/main.cpp" line="-362"/>
         <source>AppImageLauncher does not support type %1 AppImages at the moment.</source>
-        <translation>AppImageLauncher støtter ikke AppImage av %1-type for øyeblikket.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Could not make AppImage executable: %1</source>
-        <translation>Kunne ikke gjøre AppImage kjørbar: %1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Failed to open AppImage for reading: %1</source>
@@ -227,42 +215,42 @@ Relaunch with their permissions?</translation>
     <message>
         <location line="+40"/>
         <source>execv() failed: %1</source>
-        <translation type="unfinished">execv() mislyktes: %1</translation>
+        <translation type="unfinished">execv() failed: %1</translation>
     </message>
     <message>
         <location line="+70"/>
         <source>Usage: %1 [options] &lt;path&gt;</source>
-        <translation>Bruk: %1 [tilvalg] &lt;sti&gt;</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Desktop integration helper for AppImages, for use by Linux distributions.</source>
-        <translation type="unfinished">Skrivebordsintegrasjonshjelper for AppImage-filer for bruk i Linux-distribusjoner.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Options:</source>
-        <translation>Tilvalg:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Display this help and exit</source>
-        <translation>Vis denne hjelpen og avslutt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Display version and exit</source>
-        <translation>Vis versjon og avslutt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Arguments:</source>
-        <translation>Argumenter:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Path to AppImage (mandatory)</source>
-        <translation type="unfinished">Sti til AppImage (påkrevd)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+265"/>
@@ -272,7 +260,7 @@ Relaunch with their permissions?</translation>
     <message>
         <location line="-287"/>
         <source>Failed to clean up old desktop files</source>
-        <translation type="unfinished">Klarte ikke å tømme gamle skrivebordsfiler</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Failed to register AppImage in AppImageLauncherFS: error while trying to start appimagelauncherfs.service</source>
@@ -298,68 +286,35 @@ Relaunch with their permissions?</translation>
         <location line="+8"/>
         <location filename="../src/ui/remove_main.cpp" line="+1"/>
         <source>Failed to clean up AppImage trash bin: %1</source>
-        <translation type="unfinished">Klarte ikke å tømme papirkurv tilhørende AppImage: %1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+49"/>
         <source>Unknown AppImageLauncher option: %1</source>
-        <translation>Ukjent AppImageLauncher-valg: %1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+12"/>
         <location filename="../src/ui/remove_main.cpp" line="-74"/>
         <location filename="../src/ui/update_main.cpp" line="-99"/>
         <source>Error: no such file or directory: %1</source>
-        <translation>Feil: Ingen slik fil eller mappe: %1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+13"/>
         <location filename="../src/ui/update_main.cpp" line="+7"/>
         <source>Not an AppImage: %1</source>
-        <translation>Ikke et AppImage: %1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+162"/>
         <source>The directory the integrated AppImages are stored in is currently set to:
 %1</source>
-        <translation>Mappen integrerte AppImage-filer lagres i er satt til:
-%1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The directory the integrated AppImages are stored in is currently set to: %1</source>
         <translation type="vanished">The directory the integrated AppImages are stored in is currently set to: %1</translation>
-    </message>
-    <message>
-        <source>Integrating it will move the AppImage into a predefined location, and include it in your application launcher.</source>
-        <translation type="obsolete">Integrasjon vil flytte AppImage til predefinert plassering, og inkludere det i din programstarter.</translation>
-    </message>
-    <message>
-        <source>To remove or update the AppImage, please use the context menu of the application icon in your task bar or launcher.</source>
-        <translation type="obsolete">For å flytte eller oppdatere AppImage, bruk bindeleddsmenyen til programikonet i ditt oppgavelinje eller programstarter.</translation>
-    </message>
-    <message>
-        <source>The directory the integrated AppImages are stored in is currently set to:</source>
-        <translation type="vanished">Mappen integrerte AppImage-filer lagres i er satt til:</translation>
-    </message>
-    <message>
-        <source>%1 has not been integrated into your system.</source>
-        <translation type="vanished">%1 har ikke blitt integrert i systemet ditt.</translation>
-    </message>
-    <message>
-        <source>Desktop Integration</source>
-        <translation type="vanished">Skrivebordsintegrasjon</translation>
-    </message>
-    <message>
-        <source>Integrate and run</source>
-        <translation type="vanished">Integrer og kjør</translation>
-    </message>
-    <message>
-        <source>Run once</source>
-        <translation type="vanished">Kjør én gang</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="vanished">Avbryt</translation>
     </message>
     <message>
         <source>Removes AppImages after desktop integration, for use by Linux distributions</source>
@@ -377,22 +332,22 @@ Relaunch with their permissions?</translation>
     <message>
         <location filename="../src/ui/remove_main.cpp" line="-28"/>
         <source>Helper to delete integrated AppImages easily, e.g., from the application launcher&apos;s context menu</source>
-        <translation>Hjelper for å slette integrerte AppImage-filer enkelt, fra programoppstarterens bindeleddsmeny</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+19"/>
         <source>Path to AppImage</source>
-        <translation>Sti til AppImage</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+0"/>
         <source>&lt;path&gt;</source>
-        <translation>&lt;sti&gt;</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+20"/>
         <source>AppImage delete helper error</source>
-        <translation type="unfinished">Slettingsfeil for AppImage-hjelperen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>AppImage remove helper error</source>
@@ -403,9 +358,7 @@ Relaunch with their permissions?</translation>
         <source>Not an AppImage:
 
 %1</source>
-        <translation>Ikke et AppImage:
-
-%1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Refusing to work on non-integrated AppImage:
@@ -426,12 +379,12 @@ Relaunch with their permissions?</translation>
     <message>
         <location line="+38"/>
         <source>Failed to unregister AppImage: %1</source>
-        <translation type="unfinished">Klarte ikke å avregistrere AppImage: %1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+12"/>
         <source>Failed to move AppImage into trash bin directory</source>
-        <translation type="unfinished">Klarte ikke å flytte AppImage til papirkurvsmappe</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Failed to remove AppImage: %1</source>
@@ -440,23 +393,23 @@ Relaunch with their permissions?</translation>
     <message>
         <location filename="../src/shared/shared.cpp" line="-27"/>
         <source>AppImage with same filename has already been integrated.</source>
-        <translation type="unfinished">AppImage med samme filnavn allerede integrert.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Do you wish to overwrite the existing AppImage?</source>
-        <translation>Ønsker du å overskrive eksisterende AppImage?</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Choosing No will run the AppImage once, and leave the system in its current state.</source>
-        <translation type="unfinished">Å velge &quot;Nei&quot; vil kjøre AppImage én gang, og levne systemet i nåværende tilstand.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-652"/>
         <location line="+656"/>
         <source>Warning</source>
-        <translation>Advarsel</translation>
+        <translation type="unfinished">Uyarı</translation>
     </message>
     <message>
         <source>Failed to move AppImage to target location</source>
@@ -465,43 +418,40 @@ Relaunch with their permissions?</translation>
     <message>
         <location line="-296"/>
         <source>Failed to register AppImage in system via libappimage</source>
-        <translation type="unfinished">Klarte ikke å registrere AppImage i system via libappimage</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Failed to find integrated desktop file</source>
-        <translation type="unfinished">Klarte ikke å finne integrert skrivebordsfil</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Couldn&apos;t find integrated AppImage&apos;s desktop file</source>
-        <translation type="unfinished">Kunne ikke finne den integrerte skrivebordsfilen tilhørende AppImage</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+20"/>
         <source>Failed to load desktop file:</source>
-        <translation type="unfinished">Klarte ikke å laste inn skrivebordsfil:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+12"/>
         <source>AppImage has invalid desktop file</source>
-        <translation type="unfinished">AppImage har ugyldig skrivebordsfil</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+271"/>
         <source>Failed to move AppImage to target location.
 Try to copy AppImage instead?</source>
-        <translation type="unfinished">Klarte ikke å flytte AppImage til målmappe.
-Prøve å kopiere AppImage istedenfor?</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+181"/>
         <source>Failed to call stat() on path:
 
 %1</source>
-        <translation type="unfinished">Klarte ikke å kalle stat() i sti:
-
-%1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Failed to copy AppImage to target location</source>
@@ -510,13 +460,13 @@ Prøve å kopiere AppImage istedenfor?</translation>
     <message>
         <location filename="../src/ui/update_main.cpp" line="-40"/>
         <source>Updates AppImages after desktop integration, for use by Linux distributions</source>
-        <translation>Oppdaterer AppImage-filer etter skrivebordsintegrasjon, for bruk i Linux-distribusjoner</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
         <source>AppImageLauncher update</source>
         <comment>update helper app name</comment>
-        <translation>AppImageLauncher-oppdatering</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The AppImage hasn&apos;t been integrated before. This tool will, however, integrate the updated AppImage.</source>
@@ -529,12 +479,12 @@ Prøve å kopiere AppImage istedenfor?</translation>
     <message>
         <location line="+67"/>
         <source>No updates found</source>
-        <translation>Fant ingen oppdateringer</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Could not find updates for AppImage %1</source>
-        <translation type="unfinished">Fant ingen oppdateringer for %1-AppImage</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Failed to check for updates. Please check the command line output for details.</source>
@@ -543,7 +493,7 @@ Prøve å kopiere AppImage istedenfor?</translation>
     <message>
         <location line="+7"/>
         <source>No update information found</source>
-        <translation type="unfinished">Fant ingen oppdateringsinfo</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Could not find update information in AppImage:
@@ -560,10 +510,10 @@ The AppImage doesn&apos;t support updating. Please ask the authors to set update
 %1
 
 The AppImage doesn&apos;t support updating. Please ask the authors to set upupdate information to allow for easy updating.</source>
-        <translation type="vanished">Kunne ikke finne oppdateringsinfo i AppImage:
+        <translation type="vanished">Could not find update information in AppImage:
 %1
 
-AppImage støtter ikke oppdatering. Sprøv utviklerne om å sette upupdate-info for enkel oppdatering.</translation>
+The AppImage doesn&apos;t support updating. Please ask the authors to set upupdate information to allow for easy updating.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -578,58 +528,54 @@ The AppImage doesn&apos;t support updating. Please ask the authors to embed upda
         <source>Failed to check for updates:
 
 %1</source>
-        <translation type="unfinished">Klarte ikke å sjekke oppdateringer:
-
-%1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+12"/>
         <source>An update has been found for the AppImage %1</source>
-        <translation type="unfinished">Oppdatering tilgjengelig for AppImage %1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Do you want to perform the update?</source>
-        <translation type="unfinished">Ønsker du å utføre oppdateringen?</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Remove old AppImage after successful update</source>
-        <translation type="unfinished">Fjern gammelt AppImage etter oppdatering</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+24"/>
         <source>Failed to update AppImage:
 
 %1</source>
-        <translation type="unfinished">Klarte ikke å oppdatere AppImage:
-
-%1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+14"/>
         <source>File reported as updated does not exist: %1</source>
-        <translation type="unfinished">Fil rapporter som oppdatert finnes ikke: %1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Failed to register updated AppImage in system</source>
-        <translation type="unfinished">Klarte ikke å registrere oppdatert AppImage i system</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Failed to unregister old AppImage in system</source>
-        <translation>Klarte ikke å avregistrere gammelt AppImage i system</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Failed to remove old AppImage</source>
-        <translation>Klarte ikke å fjerne gammelt AppImage</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/daemon/main.cpp" line="+101"/>
         <source>Tracks AppImages in applications directories (user&apos;s, system and other ones). Automatically integrates AppImages moved into those directories and unintegrates ones removed from them.</source>
-        <translation type="unfinished">Sporer AppImage-filer i programmapper (brukerens, systemet og andre). Integrerer AppImage-filer flyttet til disse mappene automatisk, og avintegrerer de som flyttes fra dem.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Search for AppImages in /Applications directories in suitable mounted filesystems</source>
@@ -642,7 +588,7 @@ The AppImage doesn&apos;t support updating. Please ask the authors to embed upda
     <message>
         <location line="+8"/>
         <source>Lists directories watched by this daemon and exit</source>
-        <translation type="unfinished">List opp mapper denne nissen holder oppsyn med og avslutt</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -658,17 +604,17 @@ The AppImage doesn&apos;t support updating. Please ask the authors to embed upda
     <message>
         <location filename="../src/ui/remove.ui" line="+17"/>
         <source>Delete AppImage</source>
-        <translation>Slett AppImage</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+14"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Are you sure you want to delete this AppImage?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Er du sikker på at du vil slette valgt AppImage?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+22"/>
         <source>%1</source>
-        <translation>%1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Uncheck to only remove the desktop integration, but leave the file on the system.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -684,7 +630,7 @@ The AppImage doesn&apos;t support updating. Please ask the authors to embed upda
     <message>
         <location filename="../src/ui/settings_dialog.ui" line="+14"/>
         <source>AppImageLauncher Settings</source>
-        <translation>AppImageLauncher-innstillinger</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>AppImageLauncher</source>
@@ -693,12 +639,12 @@ The AppImage doesn&apos;t support updating. Please ask the authors to embed upda
     <message>
         <location line="+16"/>
         <source>Launcher Dialog</source>
-        <translation>Oppstarter-dialog</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Ask whether to move AppImage files into the applications directory</source>
-        <translation type="unfinished">Spør hvorvidt AppImage-filer skal flyttes til programmappen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>appimagelauncherd</source>
@@ -707,32 +653,32 @@ The AppImage doesn&apos;t support updating. Please ask the authors to embed upda
     <message>
         <location line="+119"/>
         <source>General settings</source>
-        <translation>Generelle innstillinger</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+6"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When this box is checked, AppImageLauncher automatically starts a daemon called appimagelauncherd.&lt;/p&gt;&lt;p&gt;This daemon automatically integrates AppImages you copy into the &amp;quot;Applications directory&amp;quot; and the additional directories you configured. When the files are deleted, the daemon will clean up the integration data.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;AppImageLauncher starter en nisse ved navn appimagelauncherd automatisk.&lt;/p&gt;&lt;p&gt;Denne nissen integrerer AppImage-filer du kopierer inn i &amp;quot;Programmappen&amp;quot; og ytterligere mapper du har satt opp. Når filer slettes, vil nissen renske opp i integrasjonsdataen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Auto start auto-integration daemon</source>
-        <translation>Start auto-integrasjonsnissen automatisk</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Additional directories to watch</source>
-        <translation>Ytterligere mapper å holde oppsyn med</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Add new directory to list</source>
-        <translation>Legg til ny mappe i listen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Remove selected directory from list</source>
-        <translation>Fjern valgt mappe fra listen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>-</source>
@@ -749,12 +695,12 @@ The AppImage doesn&apos;t support updating. Please ask the authors to embed upda
     <message>
         <location line="-144"/>
         <source>Applications directory path</source>
-        <translation>Programmappesti</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-11"/>
         <source>Location where to store your AppImage files to ease their management</source>
-        <translation>Plassering du ønsker å lagre dine AppImage-filer for å forenkle håndteringen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Location where to store your AppImage files to ease their management using the file manager.</source>
@@ -771,32 +717,32 @@ The AppImage doesn&apos;t support updating. Please ask the authors to embed upda
     <message>
         <location line="+49"/>
         <source>Available Features</source>
-        <translation>Tilgjengelige funksjoner</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/settings_dialog.cpp" line="+40"/>
         <source>updater available for AppImages supporting AppImageUpdate</source>
-        <translation type="unfinished">oppdaterer tilgjengelig for AppImage-filer som støtter AppImageUpdate</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
         <source>updater unavailable</source>
-        <translation>oppdaterer utilgjengelig</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+5"/>
         <source>&lt;strong&gt;Note: this is an AppImageLauncher Lite build, only supports a limited set of features&lt;/strong&gt;&lt;br /&gt;Please install the full version via the provided native packages to enjoy the full AppImageLauncher experience</source>
-        <translation type="unfinished">&lt;strong&gt;Merk: Dette er et AppImageLauncher Lite-bygg, det støtter kun et begrenset sett funksjoner&lt;/strong&gt;&lt;br /&gt;Installer fullversjonen via tilbudte inngebygde pakker for den beste AppImageLauncher-opplevelsen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+137"/>
         <source>Select Applications directory</source>
-        <translation>Velg programmappe</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+17"/>
         <source>Select additional directory to watch</source>
-        <translation>Velg ytterligere mappe å holde oppsyn med</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

@@ -11,7 +11,7 @@
     <message>
         <location line="+55"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Welcome to AppImageLauncher!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;This little helper is designed to improve your AppImage experience on your computer.&lt;/p&gt;&lt;p&gt;It appears you have never run AppImageLauncher before. Please take a minute and configure your preferences. You can always change these later on, using the control panel.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;欢迎使用 AppImageLauncher！&lt;/span&gt;&lt;/p&gt;&lt;p&gt;这个小助手旨在改善您的计算机上的 AppImage 体验。&lt;/p&gt;&lt;p&gt;看来您以前从未运行过 AppImageLauncher 。请花一点时间配置您的偏好。您随后可以使用控制面板更改这些内容。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;欢迎使用 AppImageLauncher！&lt;/span&gt;&lt;/p&gt;&lt;p&gt;这个小助手旨在改善您使用 AppImage 的体验。&lt;/p&gt;&lt;p&gt;看来您以前从未运行过 AppImageLauncher 。请花一点时间配置appimage launcher。您随后可以使用控制面板更改这些内容。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location line="+22"/>
@@ -21,7 +21,7 @@
     <message>
         <location line="+21"/>
         <source>Integration target destination directory:</source>
-        <translation>集成目标文件夹：</translation>
+        <translation>存放已集成的目标目录：</translation>
     </message>
     <message>
         <location line="+36"/>
@@ -31,7 +31,7 @@
     <message>
         <location filename="../src/ui/first-run.cpp" line="+86"/>
         <source>Choose integration destination dir</source>
-        <translation>选择集成目的文件夹</translation>
+        <translation>选择集成后appimage的存放目录</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -40,9 +40,46 @@
     </message>
 </context>
 <context>
+    <name>IntegrationDialog</name>
+    <message>
+        <location filename="../src/ui/integration_dialog.ui" line="+23"/>
+        <source>Desktop Integration</source>
+        <translation type="unfinished">桌面集成</translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>Icon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Noto Sans&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;%1 has not been integrated into your system.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;br /&gt;Integrating it will move the AppImage into a predefined location, and include it in your application launcher.&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;To remove or update the AppImage, please use the context menu of the application icon in your task bar or launcher. &lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The directory where the integrated AppImages are stored in is currently set to: %2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+41"/>
+        <source>Integrate and run</source>
+        <translation type="unfinished">集成并运行</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Run once</source>
+        <translation type="unfinished">运行一次</translation>
+    </message>
+</context>
+<context>
     <name>QMessageBox</name>
     <message>
-        <location filename="../src/ui/main.cpp" line="+380"/>
+        <location filename="../src/ui/main.cpp" line="+385"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
@@ -65,9 +102,10 @@ Do you want to move it into the new destination?
 Choosing No will run the AppImage once, and leave the AppImage in its current directory.
 
 </source>
-        <translation>AppImage %1 已集成，但它不在当前集成目标文件夹。
+        <translation>AppImage %1 已集成，但它不在当前已集成的文件夹内。
 
 你想要将它移至新位置吗？
+
 选择否将运行一次 AppImage ，并将 AppImage 留在当前文件夹。
 
 </translation>
@@ -81,7 +119,7 @@ Choosing No will run the AppImage once, and leave the AppImage in its current di
     <message>
         <location filename="../src/ui/main.cpp" line="+23"/>
         <source>Failed to unregister AppImage before re-integrating it</source>
-        <translation>未能在重新集成 AppImage 前注销它</translation>
+        <translation>未能在重新集成 AppImage 前解除集成</translation>
     </message>
     <message>
         <location filename="../src/shared/shared.cpp" line="-485"/>
@@ -90,7 +128,7 @@ Could not open file for reading:
 
 %1</source>
         <translation>无法解析桌面文件翻译：
-无法打开文件以读取：
+无法读取此文件：
 
 %1</translation>
     </message>
@@ -108,7 +146,7 @@ Invalid syntax:
     <message>
         <location line="+409"/>
         <source>File %1 is owned by another user: %2</source>
-        <translation>文件 %1 所有者：%2</translation>
+        <translation>文件 %1 的所有者是：%2</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -140,7 +178,7 @@ Invalid syntax:
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../src/ui/main.cpp" line="-358"/>
+        <location filename="../src/ui/main.cpp" line="-362"/>
         <source>AppImageLauncher does not support type %1 AppImages at the moment.</source>
         <translation>AppImageLauncher 目前不支持 %1 类型的 AppImage 。</translation>
     </message>
@@ -194,7 +232,7 @@ Invalid syntax:
         <translation>AppImage 桌面集成助手，供 Linux 发行版使用。</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+3"/>
         <source>Options:</source>
         <translation>选项：</translation>
     </message>
@@ -219,7 +257,12 @@ Invalid syntax:
         <translation>AppImage 路径（强制）</translation>
     </message>
     <message>
-        <location line="-21"/>
+        <location line="+265"/>
+        <source>Unexpected result from the integration dialog.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-287"/>
         <source>Failed to clean up old desktop files</source>
         <translation>清除旧桌面文件失败</translation>
     </message>
@@ -250,7 +293,7 @@ Invalid syntax:
         <translation>清空 AppImage 垃圾箱失败： %1</translation>
     </message>
     <message>
-        <location line="+48"/>
+        <location line="+49"/>
         <source>Unknown AppImageLauncher option: %1</source>
         <translation>未知 AppImageLauncher 选项： %1</translation>
     </message>
@@ -268,7 +311,7 @@ Invalid syntax:
         <translation>不是 AppImage： %1</translation>
     </message>
     <message>
-        <location line="+159"/>
+        <location line="+162"/>
         <source>The directory the integrated AppImages are stored in is currently set to:
 %1</source>
         <translation>存储集成的 AppImage 的文件夹现在被设为：
@@ -279,44 +322,36 @@ Invalid syntax:
         <translation type="vanished">存储集成的 AppImage 的文件夹现在被设为： %1</translation>
     </message>
     <message>
-        <location line="+28"/>
         <source>Integrating it will move the AppImage into a predefined location, and include it in your application launcher.</source>
-        <translation>集成它将会将 AppImage 移动到预设位置，并将它包含进你的应用启动器。</translation>
+        <translation type="vanished">集成它将会将 AppImage 移动到预设位置，并将它包含进你的应用启动器。</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>To remove or update the AppImage, please use the context menu of the application icon in your task bar or launcher.</source>
-        <translation>请使用任务栏或启动器中应用图标的上下文菜单移除或更新 AppImage 。</translation>
+        <translation type="vanished">请使用任务栏或启动器中应用图标的上下文菜单移除或更新 AppImage 。</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>The directory the integrated AppImages are stored in is currently set to:</source>
-        <translation>存储集成的 AppImage 的文件夹现在被设为：</translation>
+        <translation type="vanished">存储集成的 AppImage 的文件夹现在被设为：</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>%1 has not been integrated into your system.</source>
-        <translation>%1 尚未集成到你的系统。</translation>
+        <translation type="vanished">%1 尚未集成到你的系统。</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>Desktop Integration</source>
-        <translation>桌面集成</translation>
+        <translation type="vanished">桌面集成</translation>
     </message>
     <message>
-        <location line="+4"/>
         <source>Integrate and run</source>
-        <translation>集成并运行</translation>
+        <translation type="vanished">集成并运行</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Run once</source>
-        <translation>运行一次</translation>
+        <translation type="vanished">运行一次</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>Cancel</source>
-        <translation>取消</translation>
+        <translation type="vanished">取消</translation>
     </message>
     <message>
         <source>Removes AppImages after desktop integration, for use by Linux distributions</source>
@@ -524,7 +559,10 @@ The AppImage doesn&apos;t support updating. Please ask the authors to set upupda
 %1
 
 The AppImage doesn&apos;t support updating. Please ask the authors to embed update information to allow for easy updating.</source>
-        <translation type="unfinished"></translation>
+        <translation>无法获取Appimage内的升级信息。
+%1
+
+此Appimage不支持升级。为了轻松升级，请联系作者在Appimage内添加升级信息。</translation>
     </message>
     <message>
         <location line="+12"/>

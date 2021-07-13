@@ -115,7 +115,7 @@ int create_shm_fd_with_patched_runtime(const char* const appimage_filename, cons
 
 #endif
 
-char* find_preload_library() {
+char* find_preload_library(bool is_32bit) {
     // we expect the library to be placed next to this binary
     char* own_binary_path = realpath("/proc/self/exe", nullptr);
 
@@ -130,9 +130,43 @@ char* find_preload_library() {
         log_error("could not detect own binary's directory path");
     }
 
-    char* result = static_cast<char*>(malloc(strlen(dir_path) + 1 + strlen(PRELOAD_LIB_NAME) + 1));
-    sprintf(result, "%s/%s", dir_path, PRELOAD_LIB_NAME);
+    auto path_size = strlen(dir_path) + 1 + strlen(PRELOAD_LIB_NAME) + 1;
+
+#ifdef PRELOAD_LIB_NAME_32BIT
+    path_size += strlen(PRELOAD_LIB_NAME_32BIT);
+#endif
+
+    char* result = static_cast<char*>(malloc(path_size));
+    sprintf(result, "%s/", dir_path);
+
+#ifdef PRELOAD_LIB_NAME_32BIT
+    if (is_32bit) {
+        strcat(result, PRELOAD_LIB_NAME_32BIT);
+    } else {
+        strcat(result, PRELOAD_LIB_NAME);
+    }
+#else
+    strcat(result, PRELOAD_LIB_NAME);
+#endif
+
     return result;
+}
+
+// need to keep track of the subprocess pid in a global variable, as signal handlers in C(++) are simple interrupt
+// handlers that are not aware of any state in main()
+// note that we only connect the signal handler once we have created a subprocess, i.e., we don't need to worry about
+// subprocess_pid not being set yet
+// it's best practice to implement a check anyway, though
+static pid_t subprocess_pid = 0;
+
+void forwardSignal(int signal) {
+    if (subprocess_pid != 0) {
+        log_debug("forwarding signal %d to subprocess %ld\n", signal, subprocess_pid);
+        kill(subprocess_pid, signal);
+    } else {
+        log_error("signal %d received but no subprocess created yet, shutting down\n", signal);
+        exit(signal);
+    }
 }
 
 int main(int argc, char** argv) {
@@ -165,7 +199,7 @@ int main(int argc, char** argv) {
     }
 
     // to keep alive the memfd, we launch the AppImage as a subprocess
-    if (fork() == 0) {
+    if ((subprocess_pid = fork()) == 0) {
         // create new argv array, using passed filename as argv[0]
         std::vector<char*> new_argv;
 
@@ -180,12 +214,14 @@ int main(int argc, char** argv) {
         new_argv.push_back(nullptr);
 
         // preload our library
-        char* preload_lib_path = find_preload_library();
+        char* preload_lib_path = find_preload_library(is_32bit_elf(appimage_filename));
 
         if (preload_lib_path == nullptr) {
             log_error("could not find preload library path");
             return EXIT_CODE_FAILURE;
         }
+
+        log_debug("library to preload: %s\n", preload_lib_path);
 
         setenv("LD_PRELOAD", preload_lib_path, true);
 
@@ -202,6 +238,13 @@ int main(int argc, char** argv) {
         return EXIT_CODE_FAILURE;
     }
 
+    // now that we have a subprocess and know its process ID, it's time to set up signal forwarding
+    // note that from this point on, we don't handle signals ourselves any more, but rely on the subprocess to exit
+    // properly
+    for (int i = 0; i < 32; ++i) {
+        signal(i, forwardSignal);
+    }
+
     // wait for child process to exit, and exit with its return code
     int status;
     wait(&status);
@@ -216,7 +259,7 @@ int main(int argc, char** argv) {
         child_retcode = WTERMSIG(status);
         log_error("child exited with code %d\n", child_retcode);
     } else if (WIFEXITED(status) != 0) {
-        child_retcode = status;
+        child_retcode = WEXITSTATUS(status);
         log_debug("child exited normally with code %d\n", child_retcode);
     } else {
         log_error("unknown error: child didn't exit with signal or regular exit code\n");

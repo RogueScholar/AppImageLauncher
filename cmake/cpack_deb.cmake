@@ -52,8 +52,8 @@ set(CPACK_DEBIAN_COMPRESSION_TYPE xz)
 set(CPACK_DEBIAN_PACKAGE_RELEASE "${APPIMAGELAUNCHER_GIT_COMMIT}")
 
 # append build ID, similar to AppImage naming
-if(DEFINED ENV{TRAVIS_BUILD_NUMBER})
-    set(CPACK_DEBIAN_PACKAGE_RELEASE "travis$ENV{TRAVIS_BUILD_NUMBER}~${CPACK_DEBIAN_PACKAGE_RELEASE}")
+if(DEFINED ENV{GITHUB_RUN_NUMBER})
+    set(CPACK_DEBIAN_PACKAGE_RELEASE "gha$ENV{GITHUB_RUN_NUMBER}~${CPACK_DEBIAN_PACKAGE_RELEASE}")
 else()
     set(CPACK_DEBIAN_PACKAGE_RELEASE "local~${CPACK_DEBIAN_PACKAGE_RELEASE}")
 endif()
@@ -72,9 +72,9 @@ set(CPACK_DEBIAN_APPIMAGELAUNCHER_PACKAGE_NAME "appimagelauncher")
 # to a custom location in install.cmake
 
 if(CPACK_DEBIAN_COMPATIBILITY_LEVEL STREQUAL "bionic" OR CPACK_DEBIAN_COMPATIBILITY_LEVEL STREQUAL "cosmic" OR CPACK_DEBIAN_COMPATIBILITY_LEVEL STREQUAL "disco" OR CPACK_DEBIAN_COMPATIBILITY_LEVEL STREQUAL "eoan")
-    set(CPACK_DEBIAN_APPIMAGELAUNCHER_PACKAGE_DEPENDS "libqt5widgets5 (>= 5.2.1), libqt5gui5 (>= 5.2.1), libqt5core5a (>= 5.2.1), binfmt-support (>= 2.0), systemd, libcurl4")
+    set(CPACK_DEBIAN_APPIMAGELAUNCHER_PACKAGE_DEPENDS "libqt5dbus5 (>= 5.9), libqt5widgets5 (>= 5.2.1), libqt5gui5 (>= 5.2.1), libqt5core5a (>= 5.2.1), binfmt-support (>= 2.0), systemd, libcurl4")
 else()
-    set(CPACK_DEBIAN_APPIMAGELAUNCHER_PACKAGE_DEPENDS "libqt5widgets5 (>= 5.2.1), libqt5gui5 (>= 5.2.1), libqt5core5a (>= 5.2.1), binfmt-support (>= 2.0), systemd, libcurl3")
+    set(CPACK_DEBIAN_APPIMAGELAUNCHER_PACKAGE_DEPENDS "libqt5dbus5 (>= 5.2.1), libqt5widgets5 (>= 5.2.1), libqt5gui5 (>= 5.2.1), libqt5core5a (>= 5.2.1), binfmt-support (>= 2.0), systemd, libcurl3")
 endif()
 
 # improve dependency list
